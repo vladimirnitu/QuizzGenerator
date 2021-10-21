@@ -1,0 +1,16 @@
+
+<ng-container *ngIf="isAccessGranted">
+  <h1 mat-dialog-title>Successful login!</h1>
+  <div mat-dialog-content>{{ 'Welcome back ' + user.Email }}</div>
+  <div mat-dialog-actions [style]="'display: flex; justify-content: center'">
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!isAccessGranted">
+  <h1 mat-dialog-title>Wrong credentials!</h1>
+  <div mat-dialog-content>The username or password are incorrect!</div>
+  <div mat-dialog-actions [style]="'display: flex; justify-content: center'">
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-container>
