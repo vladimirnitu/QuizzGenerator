@@ -1,0 +1,28 @@
+<div class="home-screen">
+  <div class="home-screen__header">
+    <mat-toolbar class="home-screen__header__toolbar">
+      <div class="home-screen__header__toolbar__left-buttons">
+        <button mat-icon-button class="home-screen__header__logo" [disableRipple]="true"
+                (click)="router.navigate(['./home'])">
+          <img [src]="logoPath" class="home-screen__header__logo__img" alt="logo">
+        </button>
+        <span class="home-screen__header__title">{{ title }}</span>
+      </div>
+      <div class="home-screen__header__toolbar__right-buttons">
+        <button *ngFor="let btn of navButtonsList"
+                (click)="router.navigate([btn.link])"
+                mat-stroked-button class="home-screen__header__button">
+          {{ btn.name }}
+        </button>
+        <button *ngIf="!isLoggedIn"
+                mat-stroked-button class="home-screen__header__button__connect"
+                (click)="register()">
+          Conectează-te
+        </button>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div class="home-screen__body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

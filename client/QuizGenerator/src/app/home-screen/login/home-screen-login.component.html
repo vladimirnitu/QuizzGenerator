@@ -1,0 +1,24 @@
+<form [formGroup]="loginForm">
+  <div class="login-box">
+    <div class="login-box__header">Login</div>
+    <div class="login-box__credential-fields">
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="email" id="email" placeholder="Email" autocomplete="off" formControlName="email" required>
+      </mat-form-field>
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="password" id="password" placeholder="Password" autocomplete="off" formControlName="password" required>
+      </mat-form-field>
+    </div>
+
+    <div class="login-box__actions">
+      <button class="login-box__actions__action login"
+              mat-flat-button color="primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+      <div class="separator">
+        <span>OR</span>
+      </div>
+      <button class="login-box__actions__action signup"
+              mat-stroked-button type="button" routerLink="../login">Sign up</button>
+    </div>
+  </div>
+
+</form>

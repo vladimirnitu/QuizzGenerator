@@ -1,0 +1,74 @@
+@import "../../../varibales";
+
+* {
+  color: white !important;
+}
+
+.login-box {
+  height: max-content;
+  width: max-content;
+
+  padding: 0.3rem;
+
+  color: $white;
+  border-radius: 5px;
+  background: rgba(24, 109, 157, 0.55);
+
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid $black-50;
+    line-height: 3rem;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__credential-fields {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__credential-field {
+      width: 20rem;
+      margin: 0 0.5rem;
+    }
+  }
+
+  &__actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__action {
+      width: 15rem;
+      margin: 0.5rem;
+    }
+  }
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: $white;
+}
+
+//::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+//  background-color: $white;
+//}
+
+//::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+//  color: $white;
+//}
+
+//::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+//  background-color: darkgoldenrod;
+//}
