@@ -7,4 +7,7 @@ router.post('/register/user',uploadEmpty.none(), userMiddleware.createUserWithAl
 
 router.post('/login/user',uploadEmpty.none(), userMiddleware.loginUser)
 
+router.get('/getUsers', userMiddleware.getAllUsers)
+
+router.get('/getUser', userMiddleware.findOneUser)
 export default router

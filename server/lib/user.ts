@@ -2,14 +2,16 @@ import _ from "lodash"
 import UserTable from "../models/User"
 
 export const createUserWithAlldetailsFromRegister = (user: any, next: any) => {
-
-    let userTable = new UserTable(user)
-    userTable.save((err: any) => {
-        if (err)
-            next(err, null)
-        else
-            next(null, 'User Created')
-    })
+    return Promise.resolve()
+        .then(() => {
+            let userTable = new UserTable(user)
+            userTable.save((err: any) => {
+                if (err)
+                    next("Username or email already in use", null)
+                else
+                    next(null, user)
+            })
+        })
 }
 
 export const loginUser = (username: string, email: string, password: string, next: any) => {
@@ -29,3 +31,18 @@ export const loginUser = (username: string, email: string, password: string, nex
             }
         })
 }
+
+export const getAllUsers = (next: any) => {
+    return UserTable
+        .find({})
+        .select('-__v')
+        .then((doc: any) => { next(null, doc); return doc })
+}
+
+export const findOneUser = (username: string, email: string, next: any) => {
+    return UserTable
+        .find({ $or: [{ Email: { $eq: email } }, { UserName: { $eq: username } }] })
+        .cursor()
+        .eachAsync((doc: any) => { next(null, doc); return doc })
+}
+

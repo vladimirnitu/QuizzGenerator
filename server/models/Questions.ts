@@ -2,8 +2,11 @@ import mongoose, { Schema } from 'mongoose';
 
 export const Questions = new mongoose.Schema({
     Name: { type: String, unique:true },
-    PossibleAnswere: [{ type: Schema.Types.Mixed}]
-    
+    PossibleAnswer: [{ type: Schema.Types.Mixed}],
+    Questionary: {  type: Schema.Types.ObjectId, ref:'Questionary'},
+    QuestionaryName: { type:String},
+    CategoryName : { type: String},
+    QuestionaryCode: {type: String}
 })
 
 const QuestionsTable = mongoose.model('Questions',Questions);

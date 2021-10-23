@@ -1,11 +1,12 @@
 import _ from "lodash"
+import AnswerTable from "../models/Answer"
 import CategoryTable from "../models/Category"
+import QuestionaryTable from "../models/Questionary"
+import QuestionsTable from "../models/Questions"
 import UserTable from "../models/User"
 
 export const createCategory = (username: string, name: string, next: any) => {
     let query = { UserName: { $eq: username } }
-    console.log(username)
-    console.log(name)
     return UserTable
         .findOne(query)
         .then((doc: any) => {
@@ -15,46 +16,53 @@ export const createCategory = (username: string, name: string, next: any) => {
                     if (err)
                         next(err, null)
                     else
-                        next(null, 'Category created')
+                        next(null, { Name: name, UserName: username })
                 })
-                .then()
             }
             else {
-                console.log("aici")
                 next({}, null);
                 return {};
             }
         })
-        
+
 }
 
 
 export const deleteCategory = (username: string, name: string, next: any) => {
     let query = { UserName: { $eq: username } }
-    let deleteQuery = { Name: {$eq: name}}
+    let deleteQuery = { Name: { $eq: name } }
 
     return UserTable
         .findOne(query)
-        .then((doc: any) => {
-            if (!_.isNil(doc)) {
-              return CategoryTable
-              .deleteOne(deleteQuery)
-                .then((doc: any) => {
-                    return Promise.resolve(doc)
-                        .then((doc) => { next(null, "Category deleted") })
-                })
-                .catch((err:any) => next(err, null) )
-            }
-            else {
-                next("User not found", null);
-                return {};
+        .then((docUser: any) => {
+            if (!_.isNil(docUser)) {
+                return CategoryTable
+                    .deleteOne(deleteQuery)
+                    .then((docCategory: any) => {
+                        return QuestionaryTable
+                            .deleteMany({ CategoryName: { $eq: name } })
+                            .then((docQuestionary: any) => {
+                                return QuestionsTable
+                                    .deleteMany({ CategoryName: { $eq: name } })
+                                    .then((docQuestions: any) => {
+                                        return AnswerTable
+                                            .deleteMany({ CategoryName: { $eq: name } })
+                                            .then((docAnswere: any) => {
+                                                return Promise.resolve(docAnswere)
+                                                    .then((doc) => { next(null, "Category deleted") })
+                                            })
+                                            .catch((err: any) => next(err, null))
+                                    })
+                            })
+
+                    })
+
             }
         })
 }
 
 
 export const findOneCategory = (name: string, next: any) => {
-    console.log(name)
     let query = { Name: { $eq: name } }
     return CategoryTable
         .findOne(query)
@@ -72,6 +80,6 @@ export const findOneCategory = (name: string, next: any) => {
 
 export const browseCategories = (next: any) => {
     return CategoryTable.find({}).select('-__v')
-        .then((doc: any) => {console.log(doc); next(null, doc); return doc })
+        .then((doc: any) => { next(null, doc); return doc })
 
 }
