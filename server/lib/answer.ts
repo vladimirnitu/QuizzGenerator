@@ -13,8 +13,6 @@ export const createAnswer = (questionName: any, userName: any, answer: any, next
                 return UserTable
                     .findOne({ UserName: { $eq: userName } })
                     .then((docUser: any) => {
-                        console.log(docUser)
-                        console.log("aici")
                         if (!_.isNil(docUser)) {
                              
                             let newAnswer = {
