@@ -4,61 +4,19 @@ import QuestionsTable from "../models/Questions"
 import AnswerTable from "../models/Answer"
 import UserTable from "../models/User"
 import { Promise } from 'bluebird'
-export const createAnswer = (questionaryName: any, answers: any[], next: any) => {
-    //answers: []: { questionName: string, answer: string }
-    // return QuestionsTable
-    //     .findOne({ Name: { $eq: questionName } })
-    // .then((docQuestions: any) => {
-    //     if (!_.isNil(docQuestions)) {
-    //             return UserTable
-    //                 .findOne({ UserName: { $eq: userName } })
-    //                 .then((docUser: any) => {
-    //                     if (!_.isNil(docUser)) {
-
-    //                         let newAnswer = {
-    //                             Sex: _.get(docUser,'Sex',''),
-    //                             GroupAge: _.get(docUser,'GroupAge',''),
-    //                             Occupation: _.get(docUser,'Occupation',''),
-    //                             Urbanism: _.get(docUser, 'Urbanism',''),
-    //                             UserName: userName,
-    //                             Question: _.get(docQuestions,'_id',''),
-    //                             QuestionName: _.get(docQuestions,'Name',''),
-    //                             QuestionaryCode: _.get(docQuestions, 'QuestionaryCode',''),
-    //                             CategoryName: _.get(docQuestions,'CategoryName'),
-    //                             AnswerName: answer
-    //                         }
-    // let answerTable = new AnswerTable(newAnswer)
-    // answerTable.save((err: any) => {
-    //     if (err)
-    //         next(err, null)
-    //     else
-    //         next(null, newAnswer)
-    // })
-    // }
-
-    //                     else {
-    //                         next({}, null);
-    //                         return {};
-
-    //                     }
-    //                 })
-    //         }
-    // else {
-    //     next({}, null);
-    //     return {};
-    // }
-    //     })
+export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupage:any,occupation:any, urbanism:any, next: any) => {
     return QuestionaryTable
         .findOne({ Name: { $eq: questionaryName } })
         .then((docQuestionary: any) => {
             if (!_.isNil(docQuestionary)) {
+                next(null,"answer created")
                 return Promise
                     .each(answers, (answer) => {
                         let newAnswer = {
-                            Sex: _.get(answer, 'sex', ''),
-                            GroupAge: _.get(answer, 'groupAge', ''),
-                            Occupation: _.get(answer, 'occupation', ''),
-                            Urbanism: _.get(answer, 'urbanism', ''),
+                            Sex: sex,
+                            GroupAge: groupage,
+                            Occupation: occupation,
+                            Urbanism: urbanism,
                             // UserName: userName,
                             Question: _.get(answer, 'questionId', ''),
                             QuestionName: _.get(answer,'questionName',''),
@@ -67,12 +25,13 @@ export const createAnswer = (questionaryName: any, answers: any[], next: any) =>
                             AnswerName: _.get(answer, 'answer', '')
                         }
                         let answerTable = new AnswerTable(newAnswer)
+                        
                         answerTable.save((err: any) => {
                             if (err)
                                 next(err, null)
-                            else
-                                next(null, newAnswer)
+                                
                         })
+                         
                     })
             }
 
@@ -80,6 +39,7 @@ export const createAnswer = (questionaryName: any, answers: any[], next: any) =>
                 next({}, null);
                 return {};
             }
+        
         })
 }
 

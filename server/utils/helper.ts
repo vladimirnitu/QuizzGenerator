@@ -13,6 +13,7 @@ export const returnResponse = (res:any, err:any, data:any, next:any) => {
         return res.send(data)
     }
     else {
+        console.log(err)
         next(err)
     }
 }
