@@ -3,11 +3,10 @@ import * as answerApi from '../api/answer'
 import * as helper from '../utils/helper'
 
 export const createAnswer = (req: any, res: any, next: any) => {
-    const questionName = _.get(req, 'body.questionName');
-    const userName = _.get(req, 'body.userName', '')
-    const answer = _.get(req, 'body.answer')
+    const questionaryName = _.get(req, 'body.questionaryName');
+    const answer = _.get(req, 'body.answers','')
 
-    return answerApi.createAnswer(questionName, userName, answer, (err: any, data: any) => {
+    return answerApi.createAnswer(questionaryName, answer, (err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }
