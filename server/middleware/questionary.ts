@@ -26,6 +26,7 @@ export const createQuestionary = (req:any, res:any, next:any) => {
 
 export const getQuestionaryByCodeOrName = (req:any, res:any, next:any) => {
     const codeOrName = req.params.codeorname
+    console.log(codeOrName)
     return questionaryApi.getQuestionaryByCodeOrName(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
@@ -43,6 +44,14 @@ export const deleteQuestionary = (req:any, res:any, next:any) => {
     const codeOrName = _.get(req,'body.code',_.get(req,'body.name',''))
     const username = _.get(req,'body.username');
     return questionaryApi.deleteQuestionary(codeOrName,username,(err: any, data: any) => {
+        helper.returnResponse(res, err, data, next)
+    })
+}
+
+export const getQuestionaryByUserName = (req:any, res:any, next:any) => {
+    const username = req.params.username;
+
+    return questionaryApi.getQuestionaryByUserName(username,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }

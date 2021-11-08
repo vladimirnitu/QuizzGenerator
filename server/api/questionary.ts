@@ -13,6 +13,7 @@ export function createQuestionary(categoryName: any, name: any, code: any, usern
 }
 
 export function getQuestionaryByCodeOrName(codeOrName: any, next: any) {
+    console.log(codeOrName)
     return Promise.resolve()
         .then(() => { return questionaryLib.getQuestionaryByCodeOrName(codeOrName, next) })
 }
@@ -25,4 +26,9 @@ export function getAllQuestionariesOfACategory(categoryName: any, next: any) {
 export function deleteQuestionary(questionaryNameOrCode: any, username: any, next: any) {
     return Promise.resolve()
         .then(() => { return questionaryLib.deleteQuestionary(questionaryNameOrCode,username, next) })
+}
+
+export function getQuestionaryByUserName(username:any,next:any) {
+    return Promise.resolve()
+        .then(() => { return questionaryLib.getQuestionaryByUserName(username, next) })
 }

@@ -9,12 +9,12 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
         .findOne({ UserName: { $eq: username } })
         .then((docUser: any) => {
             if (!_.isNil(docUser)) {
-                let questionaryTable = new QuestionaryTable({ Name: name, Code: code, Username: docUser._id })
+                let questionaryTable = new QuestionaryTable({ Name: name, Code: code, UserName: docUser._id })
                 questionaryTable.save((err: any) => {
                     if (err)
                         next(err, null)
                     else
-                        next(null, { Name: name, Code: code, Username: username })
+                        next(null, { Name: name, Code: code, UserName: username })
                 })
             }
             else {
@@ -24,6 +24,17 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
         })
 }
 
+export const getQuestionaryByUserName= (username: any, next: any) => {  
+    return QuestionaryTable
+        .find({UserName: { $eq: username }})
+        .then((doc: any) => {  
+            if(_.isEmpty(doc) || doc === undefined)
+            next(null,{});
+            else
+            { next(null,doc)
+              return doc }
+            })
+}
 export const createQuestionary = (categoryName: any, name: any, code: any, username: any, next: any) => {
     return UserTable
         .findOne({ UserName: { $eq: username } })
@@ -33,12 +44,12 @@ export const createQuestionary = (categoryName: any, name: any, code: any, usern
                     .findOne({ Name: { $eq: categoryName } })
                     .then((doc: any) => {
                         if (!_.isNil(doc)) {
-                            let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, Username: username })
+                            let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             questionaryTable.save((err: any) => {
                                 if (err)
                                     next(err, null)
                                 else
-                                    next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, Username: username })
+                                    next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             })
 
                         }
@@ -57,13 +68,18 @@ export const createQuestionary = (categoryName: any, name: any, code: any, usern
         })
 }
 export const getQuestionaryByCodeOrName = (codeOrName: any, next: any) => {
-
+    
     let query1 = { Code: { $eq: codeOrName } }
     let query2 = { Name: { $eq: codeOrName } }
     return QuestionaryTable
-        .find({ $or: [query1, query2] })
-        .cursor()
-        .eachAsync((doc: any) => { next(null, doc); return doc })
+        .findOne({ $or: [query1, query2] })
+        .then((doc: any) => {  
+            console.log(doc)
+            if(_.isEmpty(doc) || doc === undefined)
+            next(null,{});
+            else
+            { next(null,doc)
+              return doc }})
 }
 
 

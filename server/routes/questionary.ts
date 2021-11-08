@@ -13,4 +13,5 @@ router.delete('/questionary', questionaryMiddleware.deleteQuestionary)
 
 router.get('/questionarycat/:category',questionaryMiddleware.getAllQuestionariesOfACategory)
 
+router.get('/questionaries/:username', questionaryMiddleware.getQuestionaryByUserName)
 export default router
