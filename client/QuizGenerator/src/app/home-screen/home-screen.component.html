@@ -17,7 +17,17 @@
         <button *ngIf="!isLoggedIn"
                 mat-stroked-button class="home-screen__header__button__connect"
                 (click)="register()">
-          Conectează-te
+          Login
+        </button>
+        <button *ngIf="isLoggedIn"
+                mat-stroked-button class="home-screen__header__button__connect"
+                (click)="openDashboard()">
+          Dashboard
+        </button>
+        <button *ngIf="isLoggedIn"
+                mat-stroked-button class="home-screen__header__button__logout"
+                (click)="logout()">
+          Logout
         </button>
       </div>
     </mat-toolbar>

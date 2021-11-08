@@ -1,6 +1,6 @@
 @import "../../varibales";
 
-.home-screen {
+.dashboard {
   height: 100%;
   background-image: url(../../assets/BGK.png);
   background-repeat: no-repeat;
@@ -17,6 +17,7 @@
     height: fit-content;
 
     &__toolbar {
+      min-height: 62.8px;
       padding: 0.4rem 5rem 0.4rem 3rem;
       height: fit-content;
       background: linear-gradient(90deg, rgba(0, 0, 0, 0.9976365546218487) 0%, rgba(0, 0, 0, 0.8155637254901961) 51%, rgba(0, 0, 0, 0.3169642857142857) 100%);
@@ -30,17 +31,6 @@
       }
     }
 
-    &__logo {
-      font-size: 2rem;
-      height: fit-content;
-      width: fit-content;
-      margin-right: 1rem;
-
-      &__img {
-        height: 50px;
-      }
-    }
-
     &__title {
       font-size: 2rem;
     }
@@ -50,13 +40,6 @@
       margin-right: 0.5rem;
       border-radius: 2rem;
       background-color: $marine-blue-70;
-
-      &__connect {
-        font-size: 1.2rem;
-        margin-left: 2rem;
-        background-color: $material-green-50;
-        border-color: $white-50;
-      }
 
       &__logout {
         font-size: 1.2rem;

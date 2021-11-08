@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../shared/requests/login.request';
 import { AuthService } from '../../shared/services/auth.service';
@@ -10,6 +15,10 @@ import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { User } from '../../shared/models/user';
+import {
+  RegisterRequest,
+  RegisterRequestResponses,
+} from '../../shared/requests/register.request';
 
 @Component({
   selector: 'app-home-screen-login',
@@ -18,11 +27,23 @@ import { User } from '../../shared/models/user';
 })
 export class HomeScreenLoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
+  signupForm: FormGroup = new FormGroup({});
 
   destroyed$: Subject<void> = new Subject<void>();
   isUserLoggedIn$ = this.store.select(fromShared.isUserLogged);
 
   isLoggedIn = false;
+  inLogin = true;
+
+  emailControl = new FormControl('', [
+    Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+  ]);
+  userNameOrEmailControl = new FormControl('', [Validators.required]);
+  userNameControl = new FormControl('', [Validators.required]);
+  loginPasswordControl = new FormControl('', [Validators.required]);
+  registerPasswordControl = new FormControl('', [Validators.required]);
+  firstNameControl = new FormControl('', [Validators.required]);
+  lastNameControl = new FormControl('', [Validators.required]);
 
   constructor(
     public dialog: MatDialog,
@@ -40,34 +61,62 @@ export class HomeScreenLoginComponent implements OnInit {
       });
 
     this.loginForm = this.formBuilder.group({
-      email: [''], // Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
-      password: [''],
+      emailOrUsername: this.userNameOrEmailControl,
+      password: this.loginPasswordControl,
+    });
+
+    this.signupForm = this.formBuilder.group({
+      email: this.emailControl,
+      username: this.userNameControl,
+      password: this.registerPasswordControl,
+      firstname: this.firstNameControl,
+      lastname: this.lastNameControl,
     });
   }
 
-  get f() {
-    return this.loginForm.controls;
-  }
-
-  login() {
+  login(): void {
     const loginRequest: LoginRequest = {
-      username: this.f.email.value,
-      password: this.f.password.value,
+      username: this.loginForm.controls.emailOrUsername.value,
+      email: this.loginForm.controls.emailOrUsername.value,
+      password: this.loginForm.controls.password.value,
     };
 
     this.authService.login(loginRequest).subscribe((response) => {
-      this.openDialog(response);
+      this.openLoginDialog(response);
       if (response.isAccessGranted) {
-        this.router.navigate(['./home']);
+        this.router.navigate(['./dashboard']);
       }
       //this.router.navigate([this.authService.INITIAL_PATH]);
     });
   }
 
-  openDialog(response: any): void {
+  signup(): void {
+    const registerRequest: RegisterRequest = {
+      username: this.signupForm.controls.username.value,
+      email: this.signupForm.controls.email.value,
+      password: this.signupForm.controls.password.value,
+      firstName: this.signupForm.controls.firstname.value,
+      name: this.signupForm.controls.lastname.value,
+    };
+
+    this.authService.register(registerRequest).subscribe((response) => {
+      if (response === RegisterRequestResponses.ALREADY_IN_USE) {
+        this.openRegisterDialog(response);
+        return;
+      }
+
+      this.router.navigate(['./dashboard']);
+      //this.router.navigate([this.authService.INITIAL_PATH]);
+    });
+  }
+
+  openLoginDialog(response: any): void {
     this.dialog.open(LoginDialogComponent, { data: response });
   }
 
+  openRegisterDialog(response: any): void {
+    this.dialog.open(RegisterDialogComponent, { data: response });
+  }
   // getUser(): void {
   //   this.authService.getCurrentUser$()
   //     .subscribe(user => this.user = user);
@@ -84,5 +133,16 @@ export class LoginDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     this.isAccessGranted = data.isAccessGranted;
     this.user = data.user;
+  }
+}
+
+@Component({
+  selector: 'app-register-dialog',
+  templateUrl: 'register-dialog.component.html',
+})
+export class RegisterDialogComponent {
+  response: any;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.response = data;
   }
 }

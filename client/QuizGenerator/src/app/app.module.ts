@@ -9,12 +9,13 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
 import {
   HomeScreenLoginComponent,
   LoginDialogComponent,
+  RegisterDialogComponent,
 } from './home-screen/login/home-screen-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AsyncPipe } from '@angular/common';
 import { BasicAuthInterceptor } from './shared/helpers/basic-auth.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
@@ -23,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { reducers } from './shared/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeScreenHomeComponent,
     HomeScreenLoginComponent,
     LoginDialogComponent,
+    RegisterDialogComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       maxAge: 50,
     }),
     MatDialogModule,
+    FormsModule,
   ],
   providers: [
     AsyncPipe,

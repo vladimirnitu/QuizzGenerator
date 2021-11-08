@@ -1,0 +1,19 @@
+<div *ngIf="isLoggedIn" class="dashboard">
+  <div class="dashboard__header">
+    <mat-toolbar class="dashboard__header__toolbar">
+      <div class="dashboard__header__toolbar__left-buttons">
+        <span class="dashboard__header__title">{{ 'Welcome back ' + this.currentUser.Name + ' ' + this.currentUser.FirstName}}</span>
+      </div>
+      <div class="dashboard__header__toolbar__right-buttons">
+        <button *ngIf="isLoggedIn"
+                mat-stroked-button class="dashboard__header__button__logout"
+                (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div class="dashboard__body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

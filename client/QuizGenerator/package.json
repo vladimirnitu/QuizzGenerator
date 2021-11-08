@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.4",
     "@ngrx/store": "^12.5.0",
     "@ngrx/store-devtools": "^12.5.0",
+    "lodash-es": "^4.17.21",
     "material": "^0.4.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
