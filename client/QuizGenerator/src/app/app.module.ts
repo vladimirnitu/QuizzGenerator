@@ -24,7 +24,11 @@ import { MatInputModule } from '@angular/material/input';
 import { reducers } from './shared/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './home-screen/dashboard/dashboard.component';
+import { DashboardMainScreenComponent } from './home-screen/dashboard/main-screen/dashboard-main-screen.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginDialogComponent,
     RegisterDialogComponent,
     DashboardComponent,
+    DashboardMainScreenComponent,
+    DashboardNewQuestionnaireComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     }),
     MatDialogModule,
     FormsModule,
+    MatSidenavModule,
+    MatIconModule,
   ],
   providers: [
     AsyncPipe,

@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { AsyncPipe } from '@angular/common';
-import * as fromShared from '../shared/state/shared.selectors';
+import * as fromShared from '../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
-import { State } from '../shared/app.state';
+import { State } from '../../shared/app.state';
 import { Router } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import * as sharedActions from '../shared/state/shared.actions';
-import { User } from '../shared/models/user';
+import * as sharedActions from '../../shared/state/shared.actions';
+import { User } from '../../shared/models/user';
+import { Globals } from '../../shared/globals';
+
+enum DashboardContent {
+  MainBoard,
+  NewQuestionnaire,
+  MyQuestionnaires,
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +29,12 @@ export class DashboardComponent implements OnInit {
 
   isLoggedIn = false;
   currentUser: User;
+
+  title = Globals.title;
+  logoPath = Globals.logoPath;
+
+  DashboardContent = DashboardContent;
+  currentPage = DashboardContent.MainBoard;
 
   constructor(
     private store: Store<State>,

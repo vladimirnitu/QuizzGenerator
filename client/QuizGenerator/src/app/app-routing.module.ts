@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { HomeScreenHomeComponent } from './home-screen/home/home-screen-home.component';
 import { HomeScreenLoginComponent } from './home-screen/login/home-screen-login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './home-screen/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -14,9 +14,9 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeScreenHomeComponent },
       { path: 'login', component: HomeScreenLoginComponent },
+      { path: 'dashboard', component: DashboardComponent, children: [] },
     ],
   },
-  { path: 'dashboard', component: DashboardComponent, children: [] },
 ];
 
 @NgModule({

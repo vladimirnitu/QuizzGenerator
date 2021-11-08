@@ -1,0 +1,45 @@
+@import "../../../varibales";
+
+.dashboard {
+  &__body {
+    color: $white;
+    flex-grow: 4;
+    overflow: auto;
+
+    &__content {
+      height: 100%;
+      background-color: transparent;
+
+      &__nav {
+        background-color: $marine-blue-80;
+        &__buttons {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          &__button {
+            width: 100%;
+            text-align: left;
+            mat-icon {
+              font-size: 1.8rem;
+              margin-right: 0.3rem;
+              height: fit-content;
+              width: fit-content;
+            }
+            height: 5rem;
+            background-color: transparent;
+            color: $white;
+            font-size: 1.2rem;
+            line-height: 1.2rem;
+            margin-bottom: 2rem;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .mat-drawer-inner-container {
+  overflow: hidden !important;
+}

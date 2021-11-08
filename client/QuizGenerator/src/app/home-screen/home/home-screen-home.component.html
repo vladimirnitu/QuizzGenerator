@@ -1,11 +1,15 @@
 <div class="home-screen__body__container centered">
   <div *ngIf="isLoggedIn$ | async" class="home-screen__body__container__title_text">
-    {{ ( currentUser$ | async)!.Firstname }}
+    {{ ( currentUser$ | async)!.FirstName }}
   </div>
 </div>
 <div class="home-screen__body__container centered margin-top">
 
   <button mat-raised-button class="home-screen__body__container__button connect" (click)="printUsr()">
     {{ 'Create a quiz!' }}
+  </button>
+
+  <button mat-raised-button class="home-screen__body__container__button connect" (click)="printUsr()">
+    {{ 'Create a quiz2!' }}
   </button>
 </div>
