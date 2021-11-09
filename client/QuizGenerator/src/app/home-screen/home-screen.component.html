@@ -9,15 +9,27 @@
         <span class="home-screen__header__title">{{ title }}</span>
       </div>
       <div class="home-screen__header__toolbar__right-buttons">
-        <button *ngFor="let btn of navButtonsList"
-                (click)="router.navigate([btn.link])"
-                mat-stroked-button class="home-screen__header__button">
-          {{ btn.name }}
-        </button>
-        <button *ngIf="!isLoggedIn"
+        <ng-container *ngIf="!inDashboard()">
+          <button *ngFor="let btn of navButtonsList"
+                  (click)="router.navigate([btn.link])"
+                  mat-stroked-button class="home-screen__header__button">
+            {{ btn.name }}
+          </button>
+        </ng-container>
+        <button *ngIf="!isLoggedIn && !inDashboard()"
                 mat-stroked-button class="home-screen__header__button__connect"
                 (click)="register()">
-          Conectează-te
+          Login
+        </button>
+        <button *ngIf="isLoggedIn && !inDashboard()"
+                mat-stroked-button class="home-screen__header__button__connect"
+                (click)="openDashboard()">
+          Dashboard
+        </button>
+        <button *ngIf="isLoggedIn"
+                mat-stroked-button class="home-screen__header__button__logout"
+                (click)="logout()">
+          Logout
         </button>
       </div>
     </mat-toolbar>

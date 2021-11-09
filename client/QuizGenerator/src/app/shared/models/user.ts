@@ -1,11 +1,7 @@
 export interface User {
-  _id: number;
+  _id: string;
   Email: string;
-  Username: string;
+  UserName: string;
   Name: string;
-  Firstname: string;
-  Sex: string;
-  GroupAge: string;
-  Occupation: string;
-  Urbanism: string;
+  FirstName: string;
 }

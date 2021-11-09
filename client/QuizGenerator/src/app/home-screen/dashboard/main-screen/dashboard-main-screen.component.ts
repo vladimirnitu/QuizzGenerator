@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { AsyncPipe } from '@angular/common';
-import * as fromShared from '../../shared/state/shared.selectors';
+import * as fromShared from '../../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
-import { State } from '../../shared/app.state';
+import { State } from '../../../shared/app.state';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-home-screen-home',
-  templateUrl: './home-screen-home.component.html',
-  styleUrls: ['./home-screen-home.component.scss'],
+  selector: 'app-dashboard-main-screen',
+  templateUrl: './dashboard-main-screen.component.html',
+  styleUrls: ['./dashboard-main-screen.component.scss'],
 })
-export class HomeScreenHomeComponent implements OnInit {
+export class DashboardMainScreenComponent implements OnInit {
   destroyed$: Subject<void> = new Subject<void>();
   isLoggedIn$ = this.store.select(fromShared.isUserLogged);
   currentUser$ = this.store.select(fromShared.getLoggedUser);

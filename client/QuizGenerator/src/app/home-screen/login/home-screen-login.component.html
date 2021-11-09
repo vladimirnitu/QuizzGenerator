@@ -1,24 +1,61 @@
 <form [formGroup]="loginForm">
-  <div class="login-box">
+  <div *ngIf="inLogin" class="login-box">
     <div class="login-box__header">Login</div>
-    <div class="login-box__credential-fields">
+    <form class="login-box__credential-fields" [formGroup]="loginForm">
       <mat-form-field class="login-box__credential-fields__credential-field">
-        <input matInput type="email" id="email" placeholder="Email" autocomplete="off" formControlName="email" required>
+        <input matInput type="text" placeholder="Username or Email"
+               formControlName="emailOrUsername" required>
       </mat-form-field>
       <mat-form-field class="login-box__credential-fields__credential-field">
-        <input matInput type="password" id="password" placeholder="Password" autocomplete="off" formControlName="password" required>
+        <input matInput type="password" placeholder="Password"
+               [formControl]="loginPasswordControl" required>
       </mat-form-field>
-    </div>
+    </form>
 
     <div class="login-box__actions">
       <button class="login-box__actions__action login"
-              mat-flat-button color="primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+              mat-flat-button color="primary" type="submit" (click)="login()" [disabled]="loginForm.invalid">Login</button>
       <div class="separator">
         <span>OR</span>
       </div>
       <button class="login-box__actions__action signup"
-              mat-stroked-button type="button" routerLink="../login">Sign up</button>
+              mat-stroked-button type="button" (click)="inLogin = false">Sign up</button>
     </div>
   </div>
 
+  <div *ngIf="!inLogin" class="login-box">
+    <div class="login-box__header">Sign Up</div>
+    <form class="login-box__credential-fields" [formGroup]="signupForm">
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="text" placeholder="Username"
+               [formControl]="userNameControl" required>
+      </mat-form-field>
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="email" placeholder="Email"
+               [formControl]="emailControl" required>
+      </mat-form-field>
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="password" placeholder="Password"
+               [formControl]="registerPasswordControl" required>
+      </mat-form-field>
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="text" placeholder="First name"
+               [formControl]="firstNameControl" required>
+      </mat-form-field>
+      <mat-form-field class="login-box__credential-fields__credential-field">
+        <input matInput type="text" placeholder="Last name"
+               [formControl]="lastNameControl" required>
+      </mat-form-field>
+    </form>
+
+    <div class="login-box__actions">
+      <button class="login-box__actions__action login"
+              mat-flat-button color="primary" type="submit" (click)="signup()" [disabled]="signupForm.invalid">Sign Up</button>
+      <div class="separator">
+        <span>OR</span>
+      </div>
+      <button class="login-box__actions__action signup"
+              mat-stroked-button type="button" (click)="inLogin = true">Login</button>
+    </div>
+  </div>
 </form>

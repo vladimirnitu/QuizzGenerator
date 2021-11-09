@@ -1,0 +1,58 @@
+@import "../../../../varibales";
+
+.main-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+    &__container {
+      width: 100%;
+      display: flex;
+
+      &.centered {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+      }
+
+      &.margin-top {
+        margin-top: 5rem;
+      }
+
+      &__title_img {
+        display: flex;
+        align-items: center;
+        padding: 0.6rem;
+        border-radius: 2rem;
+        background-color: $black;
+      }
+
+      &__title_text {
+        display: flex;
+        align-items: center;
+        height: 4rem;
+        padding: 1.2rem;
+        font-weight: 500;
+        color: $white;
+        text-shadow: 3px 3px $black;
+        font-size: 4rem;
+      }
+
+      &__button {
+        margin-top: 2rem;
+        color: $white;
+        padding: 2rem;
+        border-radius: 2rem;
+        font-size: 3rem;
+        text-shadow: 2px 2px $black;
+
+        &.connect {
+          background-color: $material-dark-green;
+        }
+      }
+
+  }
+}
+

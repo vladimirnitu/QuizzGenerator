@@ -1,0 +1,5 @@
+<div class="main-screen__container centered">
+  <div *ngIf="isLoggedIn$ | async" class="main-screen__container__title_text">
+    {{ 'Welcome ' + ( currentUser$ | async)!.FirstName + ' to your dashboard.' }}
+  </div>
+</div>
