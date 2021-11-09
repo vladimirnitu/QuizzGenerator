@@ -16,7 +16,8 @@ export const createAnswer = (req: any, res: any, next: any) => {
 
 export function getAllAnswersOfAQuestion(req: any, res: any, next: any) {
     const name = req.params.Name
-    return answerApi.getAllAnswersOfAQuestion(name, (err: any, data: any) => {
+    const questionaryName = req.params.QuestionaryName
+    return answerApi.getAllAnswersOfAQuestion(name, questionaryName, (err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }
