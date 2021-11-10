@@ -1,11 +1,11 @@
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { config } from '../config';
 import { LoginRequest, LoginRequestResponses } from '../requests/login.request';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { State } from '../app.state';
 import * as sharedActions from '../state/shared.actions';
@@ -16,22 +16,29 @@ import {
   RegisterRequest,
   RegisterRequestResponses,
 } from '../requests/register.request';
+import * as fromShared from '../state/shared.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public readonly LOGIN_PATH = '/login';
-  public readonly CONFIRM_PATH = '/confirm';
-  public readonly INITIAL_PATH = '/app/dashboard';
+  destroyed$: Subject<void> = new Subject<void>();
+  isUserLoggedIn$ = this.store.select(fromShared.isUserLogged);
+
+  isUserLoggedIn = false;
 
   constructor(
     private store: Store<State>,
     private router: Router,
     private http: HttpClient,
-    private errorHandler: ErrorHandler,
-    private asyncPipe: AsyncPipe
-  ) {}
+    private errorHandler: ErrorHandler
+  ) {
+    combineLatest([this.isUserLoggedIn$])
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(([isUserLoggedIn]) => {
+        this.isUserLoggedIn = isUserLoggedIn;
+      });
+  }
 
   register(registerRequest: RegisterRequest): Observable<any> {
     return this.http.post<any>(config.registerUrl, registerRequest).pipe(
@@ -70,5 +77,9 @@ export class AuthService {
     }
     const loggedUser: User = user;
     this.store.dispatch(sharedActions.loginUser({ loggedUser }));
+  }
+
+  getIsUserLoggedIn(): boolean {
+    return this.isUserLoggedIn;
   }
 }

@@ -4,7 +4,7 @@ import * as sharedActions from './shared.actions';
 import { SharedState } from './shared.state';
 
 const initialState: SharedState = {
-  isUserLogged: true,
+  isUserLogged: false,
   loggedUser: {
     _id: '618991468c75a243ec497d3a',
     Email: 'test5@mail.com',

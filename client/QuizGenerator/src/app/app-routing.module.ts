@@ -7,6 +7,7 @@ import { DashboardComponent } from './home-screen/dashboard/dashboard.component'
 import { DashboardMainScreenComponent } from './home-screen/dashboard/main-screen/dashboard-main-screen.component';
 import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
 import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
+import { AuthGuard } from './shared/helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -20,20 +21,25 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
-            redirectTo: 'dashboard-home',
-            pathMatch: 'full',
-          },
-          { path: 'dashboard-home', component: DashboardMainScreenComponent },
-          {
-            path: 'dashboard-list',
-            component: DashboardMyQuestionnairesComponent,
-          },
-          {
-            path: 'dashboard-new',
-            component: DashboardNewQuestionnaireComponent,
+            // canActivateChild: [AuthGuard],
+            children: [
+              {
+                path: '',
+                component: DashboardMainScreenComponent,
+              },
+              {
+                path: 'dashboard-list',
+                component: DashboardMyQuestionnairesComponent,
+              },
+              {
+                path: 'dashboard-new',
+                component: DashboardNewQuestionnaireComponent,
+              },
+            ],
           },
         ],
       },
