@@ -12,7 +12,7 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
                 let questionaryTable = new QuestionaryTable({ Name: name, Code: code, UserName: docUser._id })
                 questionaryTable.save((err: any) => {
                     if (err)
-                        next(err, null)
+                        next({error:"Duplicated Questionary"}, null)
                     else
                         next(null, { Name: name, Code: code, UserName: username })
                 })
@@ -47,7 +47,7 @@ export const createQuestionary = (categoryName: any, name: any, code: any, usern
                             let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             questionaryTable.save((err: any) => {
                                 if (err)
-                                    next(err, null)
+                                    next({error:"Duplicated Questionary"}, null)
                                 else
                                     next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             })

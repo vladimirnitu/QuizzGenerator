@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export const Questions = new mongoose.Schema({
-    Name: { type: String, unique:true },
+    Name: { type: String},
     PossibleAnswer: [{ type: Schema.Types.Mixed}],
     Questionary: {  type: Schema.Types.ObjectId, ref:'Questionary'},
     QuestionaryName: { type:String},
