@@ -1,5 +1,87 @@
-<div class="main-screen__container centered">
-  <div *ngIf="isLoggedIn$ | async" class="main-screen__container__title_text">
-    {{ 'Welcome ' + ( currentUser$ | async)!.FirstName + ' to your new questionnaire screen.' }}
-  </div>
+<div class="dashboard__new-questionnaire__container__title_text">
+  Create a new questionnaire...
 </div>
+<div class="dashboard__new-questionnaire__container centered">
+  <ng-form class="dashboard__new-questionnaire__container__card" [formGroup]="questionnaireForm">
+    <div class="dashboard__new-questionnaire__container__card__text-input-field">
+      <span class="dashboard__new-questionnaire__container__card__text-input-field__title">Create a new questionnaire</span>
+      <mat-form-field appearance="fill">
+        <mat-label>Title of the questionnaire</mat-label>
+        <input matInput type="text" [formControl]="titleControl">
+        <button *ngIf="titleControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="titleControl.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a category</mat-label>
+        <mat-select [formControl]="categoriesControl">
+          <mat-option *ngFor="let category of categories" [value]="category.Name">{{ category.Name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngFor="let question of questionsControl.controls;index as i" class="dashboard__new-questionnaire__container__card__text-input-field__question">
+        <ng-container [formGroup]="$castToFormGroup(question)">
+
+          <div class="dashboard__new-questionnaire__container__card__text-input-field__question__title">
+            <span>Question {{ i+1 }}</span>
+            <button matSuffix mat-icon-button
+                    class="dashboard__new-questionnaire__container__card__text-input-field__question__title__delete-button"
+                    (click)="removeQuestion(i)">
+              <mat-icon>{{ i >= 1 ? 'remove_circle_outline' : ''}}</mat-icon>
+            </button>
+          </div>
+
+          <mat-form-field *ngIf="$castToFormControl(question.get('nameControl')) as nameControl" appearance="fill">
+            <mat-label>Question</mat-label>
+              <input matInput type="text" [formControl]="nameControl">
+              <button *ngIf="nameControl.value !== ''" matSuffix mat-icon-button aria-label="Clear"
+                      (click)="nameControl.setValue('')">
+                <mat-icon>close</mat-icon>
+              </button>
+          </mat-form-field>
+          <ng-container *ngIf="$castToFormArray($castToFormGroup(question).get('possibleAnswersControl')) as possibleAnswersControl"
+                        formArrayName="possibleAnswersControl">
+            <div *ngFor="let answer of possibleAnswersControl.controls; index as j"
+                 class="dashboard__new-questionnaire__container__card__text-input-field__question__answer">
+              <button matSuffix mat-icon-button [disabled]="j<2"
+                      class="dashboard__new-questionnaire__container__card__text-input-field__question__answer__delete-button"
+                      (click)="removePossibleAnswer(i,j)">
+                <mat-icon>{{ j >= 2 ? 'remove_circle_outline' : ''}}</mat-icon>
+              </button>
+              <mat-form-field  appearance="fill"
+                              class="dashboard__new-questionnaire__container__card__text-input-field__question__answer__answer-content">
+                <mat-label>Answer {{ j + 1 }}</mat-label>
+                <input matInput type="text" [formControl]="$castToFormControl(answer)">
+                <button *ngIf="$castToFormControl(answer).value !== ''" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="$castToFormControl(answer).setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="dashboard__new-questionnaire__container__card__text-input-field__question__actions">
+              <button mat-flat-button class="dashboard__new-questionnaire__container__card__text-input-field__question__actions__action"
+                      (click)="addPossibleAnswer(i)">
+                <mat-icon>add</mat-icon>
+                Add Answer
+              </button>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="dashboard__new-questionnaire__container__card__text-input-field__actions">
+        <button mat-flat-button class="dashboard__new-questionnaire__container__card__text-input-field__actions__action back"
+                (click)="addQuestion()">
+          Add Question
+        </button>
+        <button mat-flat-button class="dashboard__new-questionnaire__container__card__text-input-field__actions__action reset"
+                (click)="resetQuestionnaire()">
+          Reset
+        </button>
+      </div>
+      <button *ngIf="questionnaireForm.valid" mat-flat-button class="dashboard__new-questionnaire__container__card__text-input-field__finish"
+              (click)="createQuestionnaire()">
+        Finish Questionnaire
+      </button>
+    </div>
+  </ng-form>
+</div>
+

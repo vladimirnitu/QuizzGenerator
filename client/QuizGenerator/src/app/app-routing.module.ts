@@ -4,6 +4,9 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { HomeScreenHomeComponent } from './home-screen/home/home-screen-home.component';
 import { HomeScreenLoginComponent } from './home-screen/login/home-screen-login.component';
 import { DashboardComponent } from './home-screen/dashboard/dashboard.component';
+import { DashboardMainScreenComponent } from './home-screen/dashboard/main-screen/dashboard-main-screen.component';
+import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
+import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -14,7 +17,26 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeScreenHomeComponent },
       { path: 'login', component: HomeScreenLoginComponent },
-      { path: 'dashboard', component: DashboardComponent, children: [] },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'dashboard-home',
+            pathMatch: 'full',
+          },
+          { path: 'dashboard-home', component: DashboardMainScreenComponent },
+          {
+            path: 'dashboard-list',
+            component: DashboardMyQuestionnairesComponent,
+          },
+          {
+            path: 'dashboard-new',
+            component: DashboardNewQuestionnaireComponent,
+          },
+        ],
+      },
     ],
   },
 ];

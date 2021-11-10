@@ -1,0 +1,7 @@
+<div class="dashboard__my-questionnaires__container centered">
+  <div *ngIf="isLoggedIn$ | async" class="dashboard__my-questionnaires__container__title_text">
+    {{ 'Welcome ' + ( currentUser$ | async)!.FirstName + ' to your my questionnaires screen.' }}
+  </div>
+</div>
+<div class="dashboard__my-questionnaires__container padded">
+</div>
