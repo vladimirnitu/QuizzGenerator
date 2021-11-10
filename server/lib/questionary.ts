@@ -12,7 +12,7 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
                 let questionaryTable = new QuestionaryTable({ Name: name, Code: code, UserName: docUser._id })
                 questionaryTable.save((err: any) => {
                     if (err)
-                        next({error:"Duplicated Questionary"}, null)
+                        next("Duplicated Questionary", null)
                     else
                         next(null, { Name: name, Code: code, UserName: username })
                 })
@@ -29,7 +29,7 @@ export const getQuestionaryByUserName= (username: any, next: any) => {
         .find({UserName: { $eq: username }})
         .then((doc: any) => {  
             if(_.isEmpty(doc) || doc === undefined)
-            next(null,{});
+            next({},null);
             else
             { next(null,doc)
               return doc }
@@ -47,7 +47,7 @@ export const createQuestionary = (categoryName: any, name: any, code: any, usern
                             let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             questionaryTable.save((err: any) => {
                                 if (err)
-                                    next({error:"Duplicated Questionary"}, null)
+                                    next("Duplicated Questionary", null)
                                 else
                                     next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
                             })
@@ -76,7 +76,7 @@ export const getQuestionaryByCodeOrName = (codeOrName: any, next: any) => {
         .then((doc: any) => {  
             console.log(doc)
             if(_.isEmpty(doc) || doc === undefined)
-            next(null,{});
+            next({},null);
             else
             { next(null,doc)
               return doc }})
