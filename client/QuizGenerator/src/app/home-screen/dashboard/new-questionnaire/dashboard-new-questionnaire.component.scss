@@ -1,58 +1,202 @@
 @import "../../../../varibales";
 
-.main-screen {
+.dashboard__new-questionnaire {
   height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 
-    &__container {
-      width: 100%;
+  &__container {
+    width: 100%;
+    display: flex;
+
+    margin-bottom: 10rem;
+
+    &.centered {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.margin-top {
+      margin-top: 5rem;
+    }
+
+    &__title_img {
       display: flex;
+      align-items: center;
+      padding: 0.6rem;
+      border-radius: 2rem;
+      background-color: $black;
+    }
 
-      &.centered {
+    &__title_text {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem;
+      font-weight: 500;
+      color: $white;
+      text-shadow: 3px 3px $black;
+      font-size: 4rem;
+      line-height: 4rem;
+    }
+
+    &__button {
+      margin-top: 2rem;
+      color: $white;
+      padding: 2rem;
+      border-radius: 2rem;
+      font-size: 3rem;
+      text-shadow: 2px 2px $black;
+
+      &.connect {
+        background-color: $material-dark-green;
+      }
+    }
+
+    &__card {
+      border-radius: 10px;
+      padding: 1rem;
+      width: 50%;
+      height: 100%;
+      background-color: $marine-blue-20;
+
+      &__text-input-field {
+        font-size: 1rem;
+        line-height: 1rem;
+        display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: fit-content;
-      }
 
-      &.margin-top {
-        margin-top: 5rem;
-      }
+        &__title {
+          font-size: 1.4rem;
+          line-height: 1.4rem;
+          margin-bottom: 1.5rem;
+        }
 
-      &__title_img {
-        display: flex;
-        align-items: center;
-        padding: 0.6rem;
-        border-radius: 2rem;
-        background-color: $black;
-      }
+        &__question {
+          display: flex;
+          flex-direction: column;
+          border-top: 2px solid $marine-blue;
+          padding-top: 1rem;
+          margin-bottom: 2rem;
+          width: 100%;
+          .mat-form-field {
+            display: block;
+          }
 
-      &__title_text {
-        display: flex;
-        align-items: center;
-        padding: 1.2rem;
-        font-weight: 500;
-        color: $white;
-        text-shadow: 3px 3px $black;
-        font-size: 4rem;
-        line-height: 4rem;
-      }
+          font-size: 1rem;
+          line-height: 1rem;
+          &__title {
+            height: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-      &__button {
-        margin-top: 2rem;
-        color: $white;
-        padding: 2rem;
-        border-radius: 2rem;
-        font-size: 3rem;
-        text-shadow: 2px 2px $black;
+            font-size: 1.4rem;
+            line-height: 1.4rem;
+            margin-bottom: 1rem;
 
-        &.connect {
+            mat-icon {
+              width: fit-content;
+              height: fit-content;
+              font-size: 1.4rem;
+            }
+
+            &__delete-button {
+              color: $material-dark-red;
+            }
+          }
+          &__answer {
+            display: flex;
+            align-items: flex-start;
+
+            &__answer-content {
+              flex-grow: 5;
+              height: fit-content;
+              margin-bottom: 0.5rem;
+              padding: 0;
+            }
+
+            &__delete-button {
+              transform: translate(0,25%);
+              color: $material-dark-red;
+            }
+          }
+          &__actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &__action {
+              height: 2rem;
+              width: fit-content;
+              line-height: 1rem;
+              font-size: 1rem;
+              margin-left: 3rem;
+
+              mat-icon {
+                width: fit-content;
+                height: fit-content;
+                font-size: 1rem;
+                line-height: 1rem;
+              }
+
+              ::ng-deep .mat-button-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+        &__actions {
+          display: flex;
+          justify-content: flex-end;
+          &__action {
+            width: fit-content;
+            min-width: 100px;
+            height: fit-content;
+            padding: 0.5rem;
+            margin-left: 1rem;
+
+            font-size: 1.2rem;
+            text-shadow: 1px 1px $black;
+
+            &.next {
+              background-color: $material-green;
+              color: $white;
+            }
+
+            &.back {
+              background-color: $marine-blue;
+              color: $white;
+            }
+
+            &.disabled {
+              background-color: gray;
+            }
+
+            &.reset {
+              background-color: $material-red-75;
+              color: $white;
+            }
+          }
+        }
+
+
+        &__finish {
+          margin-top: 1rem;
+          padding: 0.5rem;
+
+          font-size: 1.5rem;
+
           background-color: $material-dark-green;
+          color: $white;
         }
       }
-
+    }
   }
 }
 
+::ng-deep .mat-form-field-label {
+  color: $black !important;
+}

@@ -1,5 +1,23 @@
-<div class="main-screen__container centered">
-  <div *ngIf="isLoggedIn$ | async" class="main-screen__container__title_text">
-    {{ 'Welcome ' + ( currentUser$ | async)!.FirstName + ' to your dashboard.' }}
-  </div>
+<div *ngIf="isLoggedIn$ | async" class="dashboard__main-screen__container__title_text">
+   <span>
+    Welcome <span class="dodger-blue">{{ ' ' + ( currentUser$ | async)!.FirstName + ' ' }}</span> to your dashboard.
+   </span>
+</div>
+<div class="dashboard__main-screen__container padded">
+  <mat-card class="dashboard__main-screen__container__card">
+    <mat-card-header class="dashboard__main-screen__container__card__header">
+      <mat-icon mat-card-avatar>numbers</mat-icon>
+      <mat-card-title>Active questionnaires</mat-card-title>
+      <mat-card-subtitle>Total number of active questionnaires</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="dashboard__main-screen__container__card__content">
+      <div class="dashboard__main-screen__container__card__content__big-text">
+        Active: <span class="dodger-blue"> {{ activeQuestionnaires }} </span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="dashboard__main-screen__container__card__actions">
+      <button mat-button>OPEN</button>
+      <button mat-button>CREATE</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

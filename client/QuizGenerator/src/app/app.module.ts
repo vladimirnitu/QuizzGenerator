@@ -18,7 +18,7 @@ import { BasicAuthInterceptor } from './shared/helpers/basic-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
+import { MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { reducers } from './shared/app.reducers';
@@ -29,6 +29,9 @@ import { DashboardMainScreenComponent } from './home-screen/dashboard/main-scree
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import { MatIconModule } from '@angular/material/icon';
     DashboardComponent,
     DashboardMainScreenComponent,
     DashboardNewQuestionnaireComponent,
+    DashboardMyQuestionnairesComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,10 +65,13 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     MatSidenavModule,
     MatIconModule,
+    MatCardModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   providers: [
     AsyncPipe,
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

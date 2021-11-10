@@ -3,29 +3,26 @@
     <div class="dashboard__body__content__nav__buttons">
       <button *ngIf="isLoggedIn"
               mat-stroked-button class="dashboard__body__content__nav__buttons__button"
-              (click)="currentPage = DashboardContent.MainBoard">
+              (click)="router.navigate(['./dashboard/'])">
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </button>
       <button *ngIf="isLoggedIn"
               mat-stroked-button class="dashboard__body__content__nav__buttons__button"
-              (click)="currentPage = DashboardContent.NewQuestionnaire">
+              (click)="router.navigate(['./dashboard/dashboard-new'])">
         <mat-icon>add</mat-icon>
         <span>New questionnaire</span>
       </button>
       <button *ngIf="isLoggedIn"
               mat-stroked-button class="dashboard__body__content__nav__buttons__button"
-              (click)="currentPage = DashboardContent.MainBoard">
+              (click)="router.navigate(['./dashboard/dashboard-list'])">
         <mat-icon>list</mat-icon>
         <span>My questionnaires</span>
       </button>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content *ngIf="currentPage === DashboardContent.MainBoard">
-    <app-dashboard-main-screen></app-dashboard-main-screen>
-  </mat-sidenav-content>
-  <mat-sidenav-content *ngIf="currentPage ===DashboardContent.NewQuestionnaire">
-    <app-dashboard-new-questionnaire></app-dashboard-new-questionnaire>
-  </mat-sidenav-content>
+  <mat-sidenav-container>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
 </mat-sidenav-container>
 

@@ -59,6 +59,7 @@ export class HomeScreenComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(sharedActions.logoutUser());
+    this.router.navigate(['/home']);
   }
 
   openDashboard(): void {

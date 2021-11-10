@@ -1,6 +1,6 @@
 @import "../../../../varibales";
 
-.dashboard__main-screen {
+.dashboard__my-questionnaires {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -15,10 +15,6 @@
         justify-content: center;
         align-items: center;
         height: fit-content;
-      }
-
-      &.padded {
-        padding: 2rem;
       }
 
       &.margin-top {
@@ -36,12 +32,12 @@
       &__title_text {
         display: flex;
         align-items: center;
-        height: 4rem;
         padding: 1.2rem;
         font-weight: 500;
         color: $white;
         text-shadow: 3px 3px $black;
         font-size: 4rem;
+        line-height: 4rem;
       }
 
       &__button {
@@ -54,36 +50,6 @@
 
         &.connect {
           background-color: $material-dark-green;
-        }
-      }
-
-      &__card {
-        max-width: 400px;
-
-        &__header {
-          mat-icon {
-            width: fit-content;
-            height: fit-content;
-            font-size: 2rem;
-          }
-        }
-
-        &__content {
-          height: max-content;
-          &__big-text {
-            line-height: 5rem;
-            font-size: 5rem;
-            font-weight: 500;
-
-            .dodger-blue {
-              color: dodgerblue;
-            }
-          }
-        }
-        &__actions {
-          display: flex;
-          justify-content: space-evenly;
-
         }
       }
 
