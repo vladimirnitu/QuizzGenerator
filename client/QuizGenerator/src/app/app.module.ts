@@ -32,6 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { QuestionnaireScreenComponent } from './public/questionnaire-screen/questionnaire-screen.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { MatSelectModule } from '@angular/material/select';
     DashboardMainScreenComponent,
     DashboardNewQuestionnaireComponent,
     DashboardMyQuestionnairesComponent,
+    QuestionnaireScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatSelectModule,
     MatOptionModule,
+    MatTableModule,
   ],
   providers: [
     AsyncPipe,

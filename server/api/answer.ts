@@ -7,9 +7,9 @@ export function createAnswer(questionaryName: any,  answer: any,sex:any,groupage
 }
 
 
-export function getAllAnswersOfAQuestion(questionName: any,questionaryName:any, next: any) {
+export function getAllAnswersOfAQuestion(questionaryCode: any,questionID:any, next: any) {
     return Promise.resolve()
-        .then(() => { return answerLib.getAllAnswersOfAQuestion(questionName,questionaryName, next) })
+        .then(() => { return answerLib.getAllAnswersOfAQuestion(questionaryCode,questionID, next) })
 }
 
 export function findASpecificAnswer(answerName: any, next: any) {

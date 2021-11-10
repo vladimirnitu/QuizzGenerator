@@ -12,12 +12,18 @@
     </mat-card-header>
     <mat-card-content class="dashboard__main-screen__container__card__content">
       <div class="dashboard__main-screen__container__card__content__big-text">
-        Active: <span class="dodger-blue"> {{ activeQuestionnaires }} </span>
+        Active: <span class="dodger-blue"> {{ questionnaires?.length }} </span>
       </div>
     </mat-card-content>
     <mat-card-actions class="dashboard__main-screen__container__card__actions">
-      <button mat-button>OPEN</button>
-      <button mat-button>CREATE</button>
+      <button mat-button
+              (click)="goToMyQuestionnaires()">
+        OPEN
+      </button>
+      <button mat-button
+              (click)="goToNewQuestionnaire()">
+        CREATE
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -6,53 +6,75 @@
   flex-direction: column;
   box-sizing: border-box;
 
-    &__container {
-      width: 100%;
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__container {
+    width: 90%;
+    display: flex;
+    background-color: $sky-blue-70;
+
+    margin-bottom: 10rem;
+
+    &__title_text {
       display: flex;
+      align-items: center;
+      padding: 1.2rem;
+      font-weight: 500;
+      color: $white;
+      text-shadow: 3px 3px $black;
+      font-size: 4rem;
+      line-height: 4rem;
+    }
 
-      &.centered {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: fit-content;
-      }
+    &__table {
+      width: 100%;
 
-      &.margin-top {
-        margin-top: 5rem;
-      }
-
-      &__title_img {
-        display: flex;
-        align-items: center;
-        padding: 0.6rem;
-        border-radius: 2rem;
-        background-color: $black;
-      }
-
-      &__title_text {
-        display: flex;
-        align-items: center;
-        padding: 1.2rem;
-        font-weight: 500;
-        color: $white;
+      &__header {
+        background-color: $marine-blue;
         text-shadow: 3px 3px $black;
-        font-size: 4rem;
-        line-height: 4rem;
+        color: $white;
+        font-size: 1.6rem;
+        font-weight: 200;
+        line-height: 1.6rem;
+        height: 3rem;
       }
 
-      &__button {
-        margin-top: 2rem;
-        color: $white;
-        padding: 2rem;
-        border-radius: 2rem;
-        font-size: 3rem;
-        text-shadow: 2px 2px $black;
+      &__row {
+        background-color: transparent;
+        font-size: 1.6rem;
+        font-weight: 200;
+        line-height: 1.6rem;
+        height: 1.9rem;
 
-        &.connect {
-          background-color: $material-dark-green;
+        &.light {
+          background-color: $sky-blue-medium-70;
+        }
+
+        &.dark {
+          background-color: $sky-blue-darker-70;
+        }
+
+        .blue {
+          color: $marine-blue;
+        }
+
+        .green {
+          color: cornflowerblue;
+        }
+
+        .red {
+          color: $material-dark-red;
+        }
+
+        td {
+          text-align: center;
         }
       }
 
+    }
   }
 }
-

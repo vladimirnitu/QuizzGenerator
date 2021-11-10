@@ -67,6 +67,6 @@ export class HomeScreenComponent implements OnInit {
   }
 
   inDashboard(): boolean {
-    return this.router.url === '/dashboard';
+    return this.router.url.includes('/dashboard');
   }
 }

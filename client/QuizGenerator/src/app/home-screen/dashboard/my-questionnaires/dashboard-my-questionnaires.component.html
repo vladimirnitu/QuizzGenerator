@@ -1,7 +1,34 @@
-<div class="dashboard__my-questionnaires__container centered">
-  <div *ngIf="isLoggedIn$ | async" class="dashboard__my-questionnaires__container__title_text">
-    {{ 'Welcome ' + ( currentUser$ | async)!.FirstName + ' to your my questionnaires screen.' }}
-  </div>
+<div class="dashboard__my-questionnaires__container__title_text">
+  My Questionnaires
 </div>
-<div class="dashboard__my-questionnaires__container padded">
+<div class="dashboard__my-questionnaires__wrapper">
+  <mat-card class="dashboard__my-questionnaires__container">
+    <table class="dashboard__my-questionnaires__container__table">
+      <tr class="dashboard__my-questionnaires__container__table__header">
+        <th>No.</th>
+        <th>Questionnaire Name</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+
+      <tr *ngFor="let questionnaire of questionnaires; index as i"
+          [class]="'dashboard__my-questionnaires__container__table__row ' + ( i%2 == 0 ? ' light' : ' dark') ">
+        <td> {{ i + 1 }} </td>
+        <td> {{ questionnaire.Name }} </td>
+        <td> {{ questionnaire.CategoryName }} </td>
+        <td>
+          <button matSuffix mat-icon-button class="blue"
+                  (click)="openQuestionnaireAnswerPage(questionnaire.Code)">
+            <mat-icon>share</mat-icon>
+          </button>
+          <button matSuffix mat-icon-button class="green"
+                  (click)="openQuestionnaireStatsPage(questionnaire.Code)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button matSuffix mat-icon-button class="red">
+            <mat-icon>delete</mat-icon>
+          </button></td>
+      </tr>
+    </table>
+  </mat-card>
 </div>

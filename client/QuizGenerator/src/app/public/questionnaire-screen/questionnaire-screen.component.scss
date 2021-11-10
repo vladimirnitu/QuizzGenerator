@@ -1,4 +1,4 @@
-@import "../../../../varibales";
+@import "../../../varibales";
 
 .dashboard__main-screen {
   height: 100%;
@@ -42,7 +42,6 @@
         color: $white;
         text-shadow: 3px 3px $black;
         font-size: 4rem;
-        line-height: 4rem;
       }
 
       &__button {

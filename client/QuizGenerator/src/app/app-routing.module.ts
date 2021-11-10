@@ -8,6 +8,7 @@ import { DashboardMainScreenComponent } from './home-screen/dashboard/main-scree
 import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
 import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
 import { AuthGuard } from './shared/helpers/auth.guard';
+import { QuestionnaireScreenComponent } from './public/questionnaire-screen/questionnaire-screen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -16,6 +17,10 @@ const routes: Routes = [
     component: HomeScreenComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
+      {
+        path: 'questionnaire/:questionnaireID',
+        component: QuestionnaireScreenComponent,
+      },
       { path: 'home', component: HomeScreenHomeComponent },
       { path: 'login', component: HomeScreenLoginComponent },
       {
@@ -25,11 +30,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            // canActivateChild: [AuthGuard],
+            canActivateChild: [AuthGuard],
             children: [
               {
                 path: '',
                 component: DashboardMainScreenComponent,
+              },
+              {
+                path: 'questionnaire/:questionnaireID',
+                component: QuestionnaireScreenComponent,
               },
               {
                 path: 'dashboard-list',

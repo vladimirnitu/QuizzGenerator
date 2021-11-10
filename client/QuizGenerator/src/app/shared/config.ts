@@ -7,4 +7,5 @@ export class config {
   static categoriesUrl = baseUrl + '/category/all';
   static createQuestionnaire = baseUrl + '/questionary/create/';
   static createQuestion = baseUrl + '/questions/create/';
+  static getAllQuestionnairesOfUser = baseUrl + '/questionaries/';
 }

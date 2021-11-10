@@ -43,9 +43,9 @@ export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupa
         })
 }
 
-export const getAllAnswersOfAQuestion = (questionName: any,questionaryName:any, next: any) => {
-    let query1 = {QuestionName: { $eq: questionName }}
-    let query2 = {$or:[{QuestionaryName: { $eq: questionaryName}}, {QuestionaryCode: { $eq:questionaryName}}]}
+export const getAllAnswersOfAQuestion = (questionaryCode: any,questionID:any, next: any) => {
+    let query1 = {Question: { $eq: questionID }}
+    let query2 = {QuestionaryCode: { $eq:questionaryCode}}
     return AnswerTable
         .find({ $and: [query1,query2]})
         .then((doc: any) => { next(null, doc); return doc })

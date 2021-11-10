@@ -1,22 +1,14 @@
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { config } from '../config';
-import { LoginRequest, LoginRequestResponses } from '../requests/login.request';
 import { catchError, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { State } from '../app.state';
-import * as sharedActions from '../state/shared.actions';
 import { AsyncPipe } from '@angular/common';
 import { ErrorHandler } from '../helpers/error-handler';
 import { isNil } from 'lodash-es';
-import {
-  RegisterRequest,
-  RegisterRequestResponses,
-} from '../requests/register.request';
-import { Cateogry } from '../models/cateogry';
 import {
   QuestionnaireQuestionRequest,
   QuestionnaireQuestionRequestResponse,
@@ -32,8 +24,7 @@ export class QuestionnaireService {
     private store: Store<State>,
     private router: Router,
     private http: HttpClient,
-    private errorHandler: ErrorHandler,
-    private asyncPipe: AsyncPipe
+    private errorHandler: ErrorHandler
   ) {}
 
   createQuestionnaire(
@@ -70,9 +61,25 @@ export class QuestionnaireService {
       );
   }
 
+  getQuestionnairesOfUser(
+    username: string
+  ): Observable<QuestionnaireRequestResponse[]> {
+    return this.http
+      .get<any>(config.getAllQuestionnairesOfUser + username)
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get all questionnaires of user',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
   private processResponse(response: QuestionnaireRequestResponse): void {
     if (!isNil(response)) {
-      console.log(response);
+      // console.log(response);
     }
   }
 }
