@@ -39,7 +39,11 @@ export class HomeScreenLoginComponent implements OnInit {
     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
   ]);
   userNameOrEmailControl = new FormControl('', [Validators.required]);
-  userNameControl = new FormControl('', [Validators.required]);
+  userNameControl = new FormControl('', [
+    Validators.pattern(
+      '^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$'
+    ),
+  ]);
   loginPasswordControl = new FormControl('', [Validators.required]);
   registerPasswordControl = new FormControl('', [Validators.required]);
   firstNameControl = new FormControl('', [Validators.required]);
