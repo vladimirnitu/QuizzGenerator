@@ -25,7 +25,8 @@
                   (click)="openQuestionnaireStatsPage(questionnaire.Code)">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button matSuffix mat-icon-button class="red">
+          <button matSuffix mat-icon-button class="red"
+                  (click)="deleteQuestionnaire(questionnaire.Code)">
             <mat-icon>delete</mat-icon>
           </button></td>
       </tr>

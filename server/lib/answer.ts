@@ -9,7 +9,7 @@ export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupa
         .findOne({ Name: { $eq: questionaryName } })
         .then((docQuestionary: any) => {
             if (!_.isNil(docQuestionary)) {
-                next(null,"answer created")
+                next(null, { response: "answer created" })
                 return Promise
                     .each(answers, (answer) => {
                         let newAnswer = {
@@ -29,7 +29,6 @@ export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupa
                         answerTable.save((err: any) => {
                             if (err)
                                 next(err, null)
-                                
                         })
                          
                     })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import * as fromShared from '../../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
@@ -22,6 +22,17 @@ import {
 import { takeUntil } from 'rxjs/operators';
 import { User } from '../../../shared/models/user';
 import { Router } from '@angular/router';
+import { isNil } from 'lodash-es';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
+
+export enum DialogResult {
+  YES = 'YES',
+  NO = 'NO',
+}
 
 @Component({
   selector: 'app-dashboard-new-questionnaire',
@@ -52,7 +63,8 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
     private questionnaireService: QuestionnaireService,
     private asyncPipe: AsyncPipe,
     private formBuilder: FormBuilder,
-    public router: Router
+    public router: Router,
+    public dialog: MatDialog
   ) {
     this.questionnaireForm = new FormGroup({});
     this.initializeControllers();
@@ -171,16 +183,46 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
               possibleAnswer: question.possibleAnswersControl,
             },
           };
-          this.questionnaireService
-            .createQuestionnaireQuestion(createQuestionRequest, response.Name)
-            .subscribe((resp) => {
-              i++;
-              if (i === last) {
-                this.resetQuestionnaire();
-                this.router.navigate(['./dashboard/dashboard-list']);
-              }
-            });
+          if (!isNil(response)) {
+            this.questionnaireService
+              .createQuestionnaireQuestion(createQuestionRequest, response.Name)
+              .subscribe((resp) => {
+                i++;
+                if (i === last) {
+                  this.resetQuestionnaire();
+                  this.router.navigate(['./dashboard/dashboard-list']);
+                }
+              });
+          }
         }
       });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NewQuestionnaireDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.data === DialogResult.YES) {
+        this.createQuestionnaire();
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'app-new-questionnaire-dialog',
+  templateUrl: 'new-questionnaire-dialog.component.html',
+})
+export class NewQuestionnaireDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<NewQuestionnaireDialogComponent>
+  ) {}
+
+  back(): void {
+    this.dialogRef.close({ data: DialogResult.NO });
+  }
+
+  yes(): void {
+    this.dialogRef.close({ data: DialogResult.YES });
   }
 }

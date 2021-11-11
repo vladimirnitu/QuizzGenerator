@@ -9,7 +9,7 @@ router.post('/questionary/create/:category', questionaryMiddleware.createQuestio
 
 router.get('/questionary/:codeorname', questionaryMiddleware.getQuestionaryByCodeOrName)
 
-router.delete('/questionary', questionaryMiddleware.deleteQuestionary)
+router.delete('/questionary/:username/:code', questionaryMiddleware.deleteQuestionary)
 
 router.get('/questionarycat/:category',questionaryMiddleware.getAllQuestionariesOfACategory)
 

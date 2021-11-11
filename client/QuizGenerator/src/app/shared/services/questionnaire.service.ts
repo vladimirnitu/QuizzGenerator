@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { AsyncPipe } from '@angular/common';
 import { ErrorHandler } from '../helpers/error-handler';
 import { isNil } from 'lodash-es';
 import {
+  AnswerForQuestionnaire,
+  DeleteQuestionnaireRequest,
   QuestionnaireQuestionRequest,
   QuestionnaireQuestionRequestResponse,
   QuestionnaireRequest,
@@ -32,7 +34,10 @@ export class QuestionnaireService {
     category: string
   ): Observable<QuestionnaireRequestResponse> {
     return this.http
-      .post<any>(config.createQuestionnaire + category, request)
+      .post<any>(
+        config.createQuestionnaire + encodeURIComponent(category),
+        request
+      )
       .pipe(
         tap((data) => this.processResponse(data)),
         catchError(
@@ -49,7 +54,10 @@ export class QuestionnaireService {
     questionnaireName: string
   ): Observable<QuestionnaireQuestionRequestResponse> {
     return this.http
-      .post<any>(config.createQuestion + questionnaireName, request)
+      .post<any>(
+        config.createQuestion + encodeURIComponent(questionnaireName),
+        request
+      )
       .pipe(
         tap((data) => this.processResponse(data)),
         catchError(
@@ -77,9 +85,69 @@ export class QuestionnaireService {
       );
   }
 
-  private processResponse(response: QuestionnaireRequestResponse): void {
-    if (!isNil(response)) {
-      // console.log(response);
+  getQuestionnaireByCode(
+    questionnaireCode: string
+  ): Observable<QuestionnaireRequestResponse> {
+    return this.http
+      .get<any>(config.getQuestionnaireByCode + questionnaireCode)
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get questionnaire by code',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
+  getQuestionsOfQuestionnaireByCode(
+    questionnaireCode: string
+  ): Observable<QuestionnaireQuestionRequestResponse[]> {
+    return this.http
+      .get<any>(config.getQuestionsOfQuestionnaireByCode + questionnaireCode)
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get all questionf of questionnaire by code',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
+  createAnswer(request: AnswerForQuestionnaire): Observable<any> {
+    return this.http.post<any>(config.createAnswer, request).pipe(
+      tap((data) => this.processResponse(data)),
+      catchError(
+        this.errorHandler.handleError<any>('create answer', 'Request timeout')
+      )
+    );
+  }
+
+  deleteQuestionnaire(
+    username: string,
+    questionnaireCode: string
+  ): Observable<any> {
+    return this.http
+      .delete<any>(
+        config.deleteQuestionnaire + username + '/' + questionnaireCode
+      )
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'delete questionnaire',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
+  processResponse(response: any): void {
+    if (isNil(response)) {
+      console.log('NULL RESPONSE');
     }
   }
 }

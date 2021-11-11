@@ -10,6 +10,8 @@ import { User } from '../../../shared/models/user';
 import { QuestionnaireRequestResponse } from '../../../shared/requests/questionnaire.request';
 import { QuestionnaireService } from '../../../shared/services/questionnaire.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isNil } from 'lodash-es';
+import { errorResults } from '../../../shared/config';
 
 @Component({
   selector: 'app-dashboard-main-screen',
@@ -36,11 +38,13 @@ export class DashboardMainScreenComponent implements OnInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(([currentUser]) => {
         this.currentUser = currentUser;
-        this.questionnaireService
-          .getQuestionnairesOfUser(currentUser.UserName)
-          .subscribe((response) => {
-            this.questionnaires = response;
-          });
+        if (!isNil(currentUser)) {
+          this.questionnaireService
+            .getQuestionnairesOfUser(currentUser.UserName)
+            .subscribe((response) => {
+              this.questionnaires = response;
+            });
+        }
       });
   }
 

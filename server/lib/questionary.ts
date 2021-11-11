@@ -29,7 +29,7 @@ export const getQuestionaryByUserName= (username: any, next: any) => {
         .find({UserName: { $eq: username }})
         .then((doc: any) => {  
             if(_.isEmpty(doc) || doc === undefined)
-            next({},null);
+            next(null,[]);
             else
             { next(null,doc)
               return doc }
@@ -104,27 +104,25 @@ export const getAllQuestionariesOfACategory = (categoryName: any, next: any) => 
 }
 
 
-export const deleteQuestionary = (questionaryNameOrCode: any, username: any, next: any) => {
+export const deleteQuestionary = (questionaryCode: any, username: any, next: any) => {
     let query = { UserName: { $eq: username } }
-    let deleteQuery1 = { Name: { $eq: questionaryNameOrCode } }
-    let deleteQuery2 = { Code: { $eq: questionaryNameOrCode } }
-    let deleteQuery3 = { QuestionaryName: { $eq: questionaryNameOrCode } }
-    let deleteQuery4 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
+    let deleteQuery1 = { Code: { $eq: questionaryCode } }
+    let deleteQuery2 = { QuestionaryCode: { $eq: questionaryCode } }
     return UserTable
         .findOne(query)
         .then((docUser: any) => {
             if (!_.isNil(docUser)) {
                 return QuestionaryTable
-                    .deleteMany({ $or: [deleteQuery1, deleteQuery2] })
+                    .deleteMany(deleteQuery1)
                     .then((docQuestionary: any) => {
                         return QuestionsTable
-                            .deleteMany({ $or: [deleteQuery3, deleteQuery4] })
+                            .deleteMany(deleteQuery2)
                             .then((docQuestions: any) => {
                                 return AnswerTable
-                                    .deleteMany({ $or: [deleteQuery3, deleteQuery4] })
+                                    .deleteMany(deleteQuery2)
                                     .then((docAnswere: any) => {
                                         return Promise.resolve(docAnswere)
-                                            .then((doc) => { next(null, "Questionary deleted") })
+                                            .then((doc) => { next(null, { response: "Questionary deleted" }) })
                                     })
                                     .catch((err: any) => next(err, null))
                             })
