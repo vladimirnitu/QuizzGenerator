@@ -13,7 +13,6 @@ export function createQuestionary(categoryName: any, name: any, code: any, next:
 }
 
 export function getQuestionaryByCodeOrName(codeOrName: any, next: any) {
-    console.log(codeOrName)
     return Promise.resolve()
         .then(() => { return questionaryLib.getQuestionaryByCodeOrName(codeOrName, next) })
 }
@@ -36,4 +35,9 @@ export function getQuestionaryByUserName(username:any,next:any) {
 export function getAllUniqueAnswers(questionaryNameOrCode: any,  next: any) {
     return Promise.resolve()
         .then(() => { return questionaryLib.getAllUniqueAnswers(questionaryNameOrCode, next) })
+}
+
+export function getStatistics(questionaryNameOrCode: any,next:any) {
+    return Promise.resolve()
+    .then(() => { return questionaryLib.getStatistics(questionaryNameOrCode, next) })
 }

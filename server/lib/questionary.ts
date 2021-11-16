@@ -4,6 +4,7 @@ import QuestionaryTable from "../models/Questionary"
 import UserTable from "../models/User"
 import AnswerTable from "../models/Answer"
 import QuestionsTable from "../models/Questions"
+import { statisticMapper } from '../utils/mapper'
 export const createAnonymQuestionary = (name: any, code: any, username: any, next: any) => {
     return UserTable
         .findOne({ UserName: { $eq: username } })
@@ -26,14 +27,15 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
 
 export const getQuestionaryByUserName = (username: any, next: any) => {
     return QuestionaryTable
-        .find({UserName: { $eq: username }})
-        .then((doc: any) => {  
-            if(_.isEmpty(doc) || doc === undefined)
-            next(null,[]);
-            else
-            { next(null,doc)
-              return doc }
-            })
+        .find({ UserName: { $eq: username } })
+        .then((doc: any) => {
+            if (_.isEmpty(doc) || doc === undefined)
+                next(null, []);
+            else {
+                next(null, doc)
+                return doc
+            }
+        })
 }
 export const createQuestionary = (categoryName: any, name: any, code: any, next: any) => {
     return CategoryTable
@@ -63,7 +65,6 @@ export const getQuestionaryByCodeOrName = (codeOrName: any, next: any) => {
     return QuestionaryTable
         .findOne({ $or: [query1, query2] })
         .then((doc: any) => {
-            console.log(doc)
             if (_.isEmpty(doc) || doc === undefined)
                 next('No such Category', null);
             else {
@@ -123,21 +124,59 @@ export const deleteQuestionary = (questionaryCode: any, username: any, next: any
 }
 
 export const getAllUniqueAnswers = (questionaryNameOrCode: any, next: any) => {
-    console.log(questionaryNameOrCode)
+
     let deleteQuery1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
     let deleteQuery2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
-    console.log("aici")
-   
+
+
     return AnswerTable
         // .find({ $or: [deleteQuery1, deleteQuery2] })
-        .distinct('UserName',{ $or: [deleteQuery1, deleteQuery2] })
-        .then((res: any) => { console.log(res)
-            if (!_.isNil(res) && !_.isEmpty(res)){
-                next(null,JSON.stringify(res.length))
-            return res.length;}
+        .distinct('UserName', { $or: [deleteQuery1, deleteQuery2] })
+        .then((res: any) => {
+
+            if (!_.isNil(res) && !_.isEmpty(res)) {
+                next(null, JSON.stringify(res.length))
+                return res.length;
+            }
             else
-            next("No answer to this questionary",null)
+                next("No answer to this questionary", null)
             return 0
         })
-        .catch((err:any) => next(err,null))
+        .catch((err: any) => next(err, null))
+}
+
+export const getStatistics = (questionaryNameOrCode: any, next: any) => {
+    let deleteQuery1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
+    let deleteQuery2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
+    return AnswerTable
+        .aggregate([
+            { $match: { $or: [deleteQuery1, deleteQuery2] } },
+            {
+                $facet: {
+                    'Sex': [
+                        { $sortByCount: '$Sex' }
+                    ],
+                    'GroupAge': [
+                        { $sortByCount: '$GroupAge' }
+                    ],
+                    'Urbanism': [
+                        { $sortByCount: '$Urbanism' }
+                    ],
+                    'Occupation': [
+                        { $sortByCount: '$Occupation' }
+                    ],
+                }
+            }
+        ])
+        .then((statisticsResults: any) => {
+            return QuestionsTable
+                .find({ $or: [deleteQuery1, deleteQuery2] })
+                .count()
+                .then((countResult: any) => {
+
+                    const mappedStatistics = statisticMapper(statisticsResults, countResult);
+                    next(null, mappedStatistics)
+                }).catch((err: any) => next(err, null))
+
+        }).catch((err: any) => next(err, null))
 }

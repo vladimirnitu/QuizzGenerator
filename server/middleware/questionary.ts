@@ -17,7 +17,7 @@ export const createQuestionary = (req:any, res:any, next:any) => {
     const name = _.get(req,'body.name','');
     const code =  hexgen(128)
     const category = req.params.category;
-    console.log(category)
+
     return questionaryApi.createQuestionary(category,name,code,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
@@ -25,7 +25,7 @@ export const createQuestionary = (req:any, res:any, next:any) => {
 
 export const getQuestionaryByCodeOrName = (req:any, res:any, next:any) => {
     const codeOrName = req.params.codeorname
-    console.log(codeOrName)
+
     return questionaryApi.getQuestionaryByCodeOrName(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
@@ -56,8 +56,15 @@ export const getQuestionaryByUserName = (req:any, res:any, next:any) => {
 }
 
 export const getAllUniqueAnswers = (req:any, res:any, next:any) => {
-    const codeOrName = _.get(req,'body.code',_.get(req,'body.name',''))
+    const codeOrName = _.get(req,'body.name','')
     return questionaryApi.getAllUniqueAnswers(codeOrName,(err: any, data: any) => {
+        helper.returnResponse(res, err, data, next)
+    })
+}
+
+export const getStatistics = (req:any, res:any, next:any) => {
+    const codeOrName = _.get(req,'body.name','')
+    return questionaryApi.getStatistics(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }
