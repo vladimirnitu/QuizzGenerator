@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/answer/create', answerMiddleware.createAnswer)
 
-router.get('/answer/:Name/:questionaryName', answerMiddleware.getAllAnswersOfAQuestion)
+router.get('/answer/:questionaryCode/:questionID', answerMiddleware.getAllAnswersOfAQuestion)
 
 // router.get('/one/answer', answerMiddleware.findASpecificAnswer)
 

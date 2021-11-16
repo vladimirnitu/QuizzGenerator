@@ -50,7 +50,7 @@ export const findAllQuestionOfAQuestionary = (questionaryNameOrCode: any, next: 
             if (!_.isNil(doc)) {
 
                 return QuestionsTable
-                    .find({})
+                    .find({ QuestionaryName: { $eq: doc.Name } })
                     .then((doc:any) => { next(null, doc); return doc })
             }
             else {

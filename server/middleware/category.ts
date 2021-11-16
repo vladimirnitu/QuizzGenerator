@@ -5,7 +5,6 @@ import * as helper from '../utils/helper'
 export const createCategory = (req: any, res: any, next: any) => {
     const name = _.get(req, 'body.name', '')
     const username = _.get(req, 'body.username', '')
-
     return categoryApi.createCategory(username, name, (err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })

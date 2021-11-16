@@ -4,7 +4,14 @@ import { AsyncPipe } from '@angular/common';
 import * as fromShared from '../../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
 import { State } from '../../../shared/app.state';
-import { Subject } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { User } from '../../../shared/models/user';
+import { QuestionnaireRequestResponse } from '../../../shared/requests/questionnaire.request';
+import { QuestionnaireService } from '../../../shared/services/questionnaire.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { isNil } from 'lodash-es';
+import { errorResults } from '../../../shared/config';
 
 @Component({
   selector: 'app-dashboard-main-screen',
@@ -16,17 +23,36 @@ export class DashboardMainScreenComponent implements OnInit {
   isLoggedIn$ = this.store.select(fromShared.isUserLogged);
   currentUser$ = this.store.select(fromShared.getLoggedUser);
 
-  activeQuestionnaires = 4;
+  currentUser: User;
+  questionnaires: QuestionnaireRequestResponse[];
 
   constructor(
+    private route: ActivatedRoute,
     private store: Store<State>,
-    private authService: AuthService,
-    private asyncPipe: AsyncPipe
+    private questionnaireService: QuestionnaireService,
+    public router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    combineLatest([this.currentUser$])
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(([currentUser]) => {
+        this.currentUser = currentUser;
+        if (!isNil(currentUser)) {
+          this.questionnaireService
+            .getQuestionnairesOfUser(currentUser.UserName)
+            .subscribe((response) => {
+              this.questionnaires = response;
+            });
+        }
+      });
+  }
 
-  printUsr(): void {
-    console.log(this.asyncPipe.transform(this.currentUser$));
+  goToNewQuestionnaire(): void {
+    this.router.navigate(['dashboard-new'], { relativeTo: this.route });
+  }
+
+  goToMyQuestionnaires(): void {
+    this.router.navigate(['dashboard-list'], { relativeTo: this.route });
   }
 }

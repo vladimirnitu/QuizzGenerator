@@ -58,8 +58,8 @@ export class HomeScreenComponent implements OnInit {
   }
 
   logout(): void {
-    this.store.dispatch(sharedActions.logoutUser());
     this.router.navigate(['/home']);
+    this.store.dispatch(sharedActions.logoutUser());
   }
 
   openDashboard(): void {
@@ -67,6 +67,6 @@ export class HomeScreenComponent implements OnInit {
   }
 
   inDashboard(): boolean {
-    return this.router.url === '/dashboard';
+    return this.router.url.includes('/dashboard');
   }
 }

@@ -23,9 +23,9 @@ export function getAllQuestionariesOfACategory(categoryName: any, next: any) {
         .then(() => { return questionaryLib.getAllQuestionariesOfACategory(categoryName, next) })
 }
 
-export function deleteQuestionary(questionaryNameOrCode: any, username: any, next: any) {
+export function deleteQuestionary(questionaryCode: any, username: any, next: any) {
     return Promise.resolve()
-        .then(() => { return questionaryLib.deleteQuestionary(questionaryNameOrCode,username, next) })
+        .then(() => { return questionaryLib.deleteQuestionary(questionaryCode,username, next) })
 }
 
 export function getQuestionaryByUserName(username:any,next:any) {

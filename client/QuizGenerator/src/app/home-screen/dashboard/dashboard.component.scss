@@ -51,3 +51,7 @@
 ::ng-deep .mat-drawer-container {
   background-color: transparent !important;
 }
+
+::ng-deep .mat-form-field-label {
+  color: rgba(0,0,0,1);
+}

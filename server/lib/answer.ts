@@ -9,7 +9,7 @@ export const createAnswer = (questionaryName: any,userName:any, answers: any[],s
         .findOne({ Name: { $eq: questionaryName } })
         .then((docQuestionary: any) => {
             if (!_.isNil(docQuestionary)) {
-                next(null,"answer created")
+                next(null, { response: "answer created" })
                 return Promise
                     .each(answers, (answer) => {
                         let newAnswer = {
@@ -30,7 +30,6 @@ export const createAnswer = (questionaryName: any,userName:any, answers: any[],s
                         answerTable.save((err: any) => {
                             if (err)
                                 next(err, null)
-                                
                         })
                          
                     })
@@ -44,9 +43,9 @@ export const createAnswer = (questionaryName: any,userName:any, answers: any[],s
         })
 }
 
-export const getAllAnswersOfAQuestion = (questionName: any,questionaryName:any, next: any) => {
-    let query1 = {QuestionName: { $eq: questionName }}
-    let query2 = {$or:[{QuestionaryName: { $eq: questionaryName}}, {QuestionaryCode: { $eq:questionaryName}}]}
+export const getAllAnswersOfAQuestion = (questionaryCode: any,questionID:any, next: any) => {
+    let query1 = {Question: { $eq: questionID }}
+    let query2 = {QuestionaryCode: { $eq:questionaryCode}}
     return AnswerTable
         .find({ $and: [query1,query2]})
         .then((doc: any) => { next(null, doc); return doc })

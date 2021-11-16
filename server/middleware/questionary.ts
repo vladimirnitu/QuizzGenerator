@@ -40,9 +40,9 @@ export const getAllQuestionariesOfACategory = (req:any, res:any, next:any) => {
 }
 
 export const deleteQuestionary = (req:any, res:any, next:any) => {
-    const codeOrName = _.get(req,'body.code',_.get(req,'body.name',''))
-    const username = _.get(req,'body.username');
-    return questionaryApi.deleteQuestionary(codeOrName,username,(err: any, data: any) => {
+    const code = req.params.code;
+    const username = req.params.username;
+    return questionaryApi.deleteQuestionary(code, username,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }

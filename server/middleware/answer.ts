@@ -15,10 +15,10 @@ export const createAnswer = (req: any, res: any, next: any) => {
     })
 }
 
-export function getAllAnswersOfAQuestion(req: any, res: any, next: any) {
-    const name = req.params.Name
-    const questionaryName = req.params.QuestionaryName
-    return answerApi.getAllAnswersOfAQuestion(name, questionaryName, (err: any, data: any) => {
+export const getAllAnswersOfAQuestion = (req: any, res: any, next: any) => {
+    const questionaryCode = req.params.questionaryCode;
+    const questionID = req.params.questionID;
+    return answerApi.getAllAnswersOfAQuestion(questionaryCode, questionID, (err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }

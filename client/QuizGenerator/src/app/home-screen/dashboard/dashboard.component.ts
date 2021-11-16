@@ -33,15 +33,7 @@ export class DashboardComponent implements OnInit {
   title = Globals.title;
   logoPath = Globals.logoPath;
 
-  DashboardContent = DashboardContent;
-  currentPage = DashboardContent.MainBoard;
-
-  constructor(
-    private store: Store<State>,
-    private authService: AuthService,
-    private asyncPipe: AsyncPipe,
-    public router: Router
-  ) {}
+  constructor(private store: Store<State>, public router: Router) {}
 
   ngOnInit(): void {
     combineLatest([this.isLoggedIn$, this.currentUser$])

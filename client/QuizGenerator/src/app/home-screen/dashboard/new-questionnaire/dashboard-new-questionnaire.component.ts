@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import * as fromShared from '../../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,6 @@ import { State } from '../../../shared/app.state';
 import { combineLatest, Subject } from 'rxjs';
 import { CategoriesService } from '../../../shared/services/categories.service';
 import { Cateogry } from '../../../shared/models/cateogry';
-import { isNil } from 'lodash-es';
 import {
   FormArray,
   FormBuilder,
@@ -22,6 +21,18 @@ import {
 } from '../../../shared/requests/questionnaire.request';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '../../../shared/models/user';
+import { Router } from '@angular/router';
+import { isNil } from 'lodash-es';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
+
+export enum DialogResult {
+  YES = 'YES',
+  NO = 'NO',
+}
 
 @Component({
   selector: 'app-dashboard-new-questionnaire',
@@ -51,7 +62,9 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
     private categoriesService: CategoriesService,
     private questionnaireService: QuestionnaireService,
     private asyncPipe: AsyncPipe,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public router: Router,
+    public dialog: MatDialog
   ) {
     this.questionnaireForm = new FormGroup({});
     this.initializeControllers();
@@ -122,25 +135,30 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
   }
 
   resetQuestionnaire(): void {
-    this.initializeControllers();
-    this.questionnaireForm.reset();
-
     this.questionnaireForm.controls.title.setValue('');
-    this.questionnaireForm.controls.title.setErrors({ incorrect: true });
     this.questionnaireForm.controls.category.setValue('');
-    this.questionnaireForm.controls.category.setErrors({ incorrect: true });
-
-    for (const control of (
-      this.questionnaireForm.controls.questions as FormArray
+    (this.questionnaireForm.controls.questions as FormArray).controls[0]
+      .get('nameControl')
+      .setValue('');
+    for (const ct of (
+      (this.questionnaireForm.controls.questions as FormArray).controls[0].get(
+        'possibleAnswersControl'
+      ) as FormArray
     ).controls) {
-      control.get('nameControl').setValue('');
-      control.get('nameControl').setErrors({ incorrect: true });
-      for (const ct of (control.get('possibleAnswersControl') as FormArray)
-        .controls) {
-        ct.setValue('');
-        ct.setErrors({ incorrect: true });
-      }
+      ct.setValue('');
     }
+    (
+      (this.questionnaireForm.controls.questions as FormArray).controls[0].get(
+        'possibleAnswersControl'
+      ) as FormArray
+    ).controls = (
+      (this.questionnaireForm.controls.questions as FormArray).controls[0].get(
+        'possibleAnswersControl'
+      ) as FormArray
+    ).controls.slice(0, 2);
+    (this.questionnaireForm.controls.questions as FormArray).controls = (
+      this.questionnaireForm.controls.questions as FormArray
+    ).controls.slice(0, 1);
   }
 
   createQuestionnaire(): void {
@@ -153,7 +171,9 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
     this.questionnaireService
       .createQuestionnaire(createQuestionnaireRequest, category)
       .subscribe((response) => {
-        console.log(response);
+        const last = (this.questionnaireForm.controls.questions as FormArray)
+          .value.length;
+        let i = 0;
         for (const question of (
           this.questionnaireForm.controls.questions as FormArray
         ).value) {
@@ -163,12 +183,46 @@ export class DashboardNewQuestionnaireComponent implements OnInit {
               possibleAnswer: question.possibleAnswersControl,
             },
           };
-          this.questionnaireService
-            .createQuestionnaireQuestion(createQuestionRequest, response.Name)
-            .subscribe((resp) => {
-              console.log(resp);
-            });
+          if (!isNil(response)) {
+            this.questionnaireService
+              .createQuestionnaireQuestion(createQuestionRequest, response.Name)
+              .subscribe((resp) => {
+                i++;
+                if (i === last) {
+                  this.resetQuestionnaire();
+                  this.router.navigate(['./dashboard/dashboard-list']);
+                }
+              });
+          }
         }
       });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NewQuestionnaireDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.data === DialogResult.YES) {
+        this.createQuestionnaire();
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'app-new-questionnaire-dialog',
+  templateUrl: 'new-questionnaire-dialog.component.html',
+})
+export class NewQuestionnaireDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<NewQuestionnaireDialogComponent>
+  ) {}
+
+  back(): void {
+    this.dialogRef.close({ data: DialogResult.NO });
+  }
+
+  yes(): void {
+    this.dialogRef.close({ data: DialogResult.YES });
   }
 }

@@ -1,0 +1,105 @@
+@import "../../../varibales";
+
+.questionnaire-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  box-sizing: border-box;
+
+  &__container {
+    width: 50%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    padding-top: 2rem;
+    background-color: $sky-blue-70;
+
+    margin-bottom: 10rem;
+
+    &__title {
+      width: 100%;
+      line-height: 2.2rem;
+      height: fit-content;
+      text-align: center;
+      font-size: 2rem;
+
+      margin-bottom: 3rem;
+    }
+
+    &__details {
+      display: flex;
+      justify-content: space-around;
+
+      margin-bottom: 3rem;
+
+      &__detail {
+        text-align: center;
+        line-height: 2rem;
+        height: 2rem;
+        font-size: 1.3rem;
+        width: 40%;
+      }
+    }
+
+    &__radio {
+      align-self: center;
+      height: fit-content;
+      width: 90%;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      margin-bottom: 1rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 2px solid $marine-blue;
+
+      &__title {
+        height: fit-content;
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        padding: 0.4rem;
+        margin-bottom: 0.4rem;
+      }
+
+      &__group {
+        height: fit-content;
+        font-size: 1.1rem;
+        padding: 0.4rem;
+
+        &__button {
+          height: fit-content;
+          width: fit-content;
+          padding: 0.4rem;
+        }
+      }
+    }
+
+    &__personal-data {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 90%;
+
+      &__title {
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    &__finish {
+      align-self: center;
+      width: 90%;
+      margin-top: 1rem;
+      padding: 0.5rem;
+
+      font-size: 1.5rem;
+
+      background-color: $material-dark-green;
+      color: $white;
+    }
+  }
+}

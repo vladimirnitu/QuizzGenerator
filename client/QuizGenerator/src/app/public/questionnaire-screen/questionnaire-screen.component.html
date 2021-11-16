@@ -1,0 +1,62 @@
+<div class="questionnaire-screen">
+
+  <mat-card class="questionnaire-screen__container">
+    <div class="questionnaire-screen__container__title">
+      {{ questionnaire?.Name }}
+    </div>
+    <div class="questionnaire-screen__container__details">
+      <div class="questionnaire-screen__container__details__detail">
+        <span>Category: {{ questionnaire?.CategoryName }} </span>
+      </div>
+      <div class="questionnaire-screen__container__details__detail">
+        <span>Author: {{ questionnaire?.UserName }} </span>
+      </div>
+    </div>
+    <div *ngFor="let questionAnswers of questionsAnswers.controls; index as i"
+                  class="questionnaire-screen__container__radio">
+      <div class="questionnaire-screen__container__radio__title">
+        {{ i+1 }}. {{ questions[i].Name }}
+      </div>
+      <mat-radio-group class="questionnaire-screen__container__radio__group"
+        [formControl]="$castToFormControl(questionAnswers)">
+        <mat-radio-button class="questionnaire-screen__container__radio__group__button" *ngFor="let answer of questions[i].PossibleAnswer" [value]="answer">
+          {{ answer }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="questionnaire-screen__container__personal-data">
+      <div class="questionnaire-screen__container__personal-data__title">
+        Fill in some data about you
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Chose your gender</mat-label>
+        <mat-select [formControl]="sex">
+          <mat-option *ngFor="let sexO of sexOptions" [value]="sexO">{{ sexO }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Chose your age group</mat-label>
+        <mat-select [formControl]="ageGroup">
+          <mat-option *ngFor="let ageGroupO of ageGroupOptions" [value]="ageGroupO">{{ ageGroupO }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Chose your urbanization level</mat-label>
+        <mat-select [formControl]="urbanism">
+          <mat-option *ngFor="let urbanismO of urbanismOptions" [value]="urbanismO">{{ urbanismO }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Fill in your occupation</mat-label>
+        <input matInput type="text" [formControl]="occupation">
+        <button *ngIf="occupation.value" matSuffix mat-icon-button aria-label="Clear" (click)="occupation.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <button [disabled]="!questionnaireForm.valid" mat-flat-button class="questionnaire-screen__container__finish"
+            (click)="answerQuestionnaire()">
+      Submit Answers
+    </button>
+  </mat-card>
+</div>

@@ -12,9 +12,8 @@ import {
   RegisterDialogComponent,
 } from './home-screen/login/home-screen-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AsyncPipe } from '@angular/common';
-import { BasicAuthInterceptor } from './shared/helpers/basic-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,11 +26,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DashboardComponent } from './home-screen/dashboard/dashboard.component';
 import { DashboardMainScreenComponent } from './home-screen/dashboard/main-screen/dashboard-main-screen.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
+import {
+  DashboardNewQuestionnaireComponent,
+  NewQuestionnaireDialogComponent,
+} from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-questionnaires/dashboard-my-questionnaires.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { QuestionnaireScreenComponent } from './public/questionnaire-screen/questionnaire-screen.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -45,6 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
     DashboardMainScreenComponent,
     DashboardNewQuestionnaireComponent,
     DashboardMyQuestionnairesComponent,
+    QuestionnaireScreenComponent,
+    NewQuestionnaireDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +75,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatSelectModule,
     MatOptionModule,
+    MatTableModule,
+    MatRadioModule,
   ],
   providers: [
     AsyncPipe,
