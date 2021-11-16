@@ -5,9 +5,10 @@ export const Questionary = new mongoose.Schema({
     Code: { type: String, unique:true},
     Category: {type: Schema.Types.ObjectId, ref:'Category'},
     CategoryName: {type: String},
-    UserName: { type: String}
+    UserName: { type: String},
+    AnswerNumber: { type: Number}
 })
 
 const QuestionaryTable = mongoose.model('Questionary', Questionary);
 
-export default QuestionaryTable;``
+export default QuestionaryTable;

@@ -4,7 +4,7 @@ import QuestionsTable from "../models/Questions"
 import AnswerTable from "../models/Answer"
 import UserTable from "../models/User"
 import { Promise } from 'bluebird'
-export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupage:any,occupation:any, urbanism:any, next: any) => {
+export const createAnswer = (questionaryName: any,userName:any, answers: any[],sex:any,groupage:any,occupation:any, urbanism:any, next: any) => {
     return QuestionaryTable
         .findOne({ Name: { $eq: questionaryName } })
         .then((docQuestionary: any) => {
@@ -17,9 +17,10 @@ export const createAnswer = (questionaryName: any, answers: any[],sex:any,groupa
                             GroupAge: groupage,
                             Occupation: occupation,
                             Urbanism: urbanism,
-                            // UserName: userName,
+                            UserName: userName,
                             Question: _.get(answer, 'questionId', ''),
                             QuestionName: _.get(answer,'questionName',''),
+                            QuestionaryName: questionaryName,
                             QuestionaryCode: docQuestionary.Code,
                             CategoryName: docQuestionary.CategoryName,
                             AnswerName: _.get(answer, 'answer', '')

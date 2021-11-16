@@ -16,10 +16,9 @@ export const createAnonymQuestionary = (req:any, res:any, next:any) => {
 export const createQuestionary = (req:any, res:any, next:any) => {
     const name = _.get(req,'body.name','');
     const code =  hexgen(128)
-    const username = _.get(req,'body.username');
     const category = req.params.category;
-
-    return questionaryApi.createQuestionary(category,name,code,username,(err: any, data: any) => {
+    console.log(category)
+    return questionaryApi.createQuestionary(category,name,code,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }
@@ -52,6 +51,13 @@ export const getQuestionaryByUserName = (req:any, res:any, next:any) => {
     const username = req.params.username;
 
     return questionaryApi.getQuestionaryByUserName(username,(err: any, data: any) => {
+        helper.returnResponse(res, err, data, next)
+    })
+}
+
+export const getAllUniqueAnswers = (req:any, res:any, next:any) => {
+    const codeOrName = _.get(req,'body.code',_.get(req,'body.name',''))
+    return questionaryApi.getAllUniqueAnswers(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }

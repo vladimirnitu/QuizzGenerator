@@ -8,7 +8,9 @@ export const Answer = new mongoose.Schema({
     Question: { type: Schema.Types.ObjectId, ref: 'Question' },
     QuestionName: { type: String },
     QuestionaryCode: { type: String },
+    QuestionaryName: {type: String},
     CategoryName: { type: String },
+    UserCode: { type: String},
     AnswerName: { type: Schema.Types.Mixed },
 })
 

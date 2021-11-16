@@ -18,68 +18,60 @@ export const createAnonymQuestionary = (name: any, code: any, username: any, nex
                 })
             }
             else {
-                next({}, null);
+                next('No such User', null);
                 return {};
             }
         })
 }
 
-export const getQuestionaryByUserName= (username: any, next: any) => {  
+export const getQuestionaryByUserName = (username: any, next: any) => {
     return QuestionaryTable
-        .find({UserName: { $eq: username }})
-        .then((doc: any) => {  
-            if(_.isEmpty(doc) || doc === undefined)
-            next({},null);
-            else
-            { next(null,doc)
-              return doc }
-            })
-}
-export const createQuestionary = (categoryName: any, name: any, code: any, username: any, next: any) => {
-    return UserTable
-        .findOne({ UserName: { $eq: username } })
-        .then((docUser: any) => {
-            if (!_.isNil(docUser)) {
-                return CategoryTable
-                    .findOne({ Name: { $eq: categoryName } })
-                    .then((doc: any) => {
-                        if (!_.isNil(doc)) {
-                            let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
-                            questionaryTable.save((err: any) => {
-                                if (err)
-                                    next("Duplicated Questionary", null)
-                                else
-                                    next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
-                            })
-
-                        }
-                        else {
-
-                            next({}, null);
-                            return {};
-                        }
-                    })
-            }
-
-            else {
+        .find({ UserName: { $eq: username } })
+        .then((doc: any) => {
+            if (_.isEmpty(doc) || doc === undefined)
                 next({}, null);
-                return {}
+            else {
+                next(null, doc)
+                return doc
+            }
+        })
+}
+export const createQuestionary = (categoryName: any, name: any, code: any, next: any) => {
+    return CategoryTable
+        .findOne({ Name: { $eq: categoryName } })
+        .then((doc: any) => {
+            if (!_.isNil(doc)) {
+                let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code })
+                questionaryTable.save((err: any) => {
+                    if (err)
+                        next("Duplicated Questionary", null)
+                    else
+                        next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code })
+                })
+
+            }
+            else {
+
+                next('No such Category', null);
+                return {};
             }
         })
 }
 export const getQuestionaryByCodeOrName = (codeOrName: any, next: any) => {
-    
+
     let query1 = { Code: { $eq: codeOrName } }
     let query2 = { Name: { $eq: codeOrName } }
     return QuestionaryTable
         .findOne({ $or: [query1, query2] })
-        .then((doc: any) => {  
+        .then((doc: any) => {
             console.log(doc)
-            if(_.isEmpty(doc) || doc === undefined)
-            next({},null);
-            else
-            { next(null,doc)
-              return doc }})
+            if (_.isEmpty(doc) || doc === undefined)
+                next('No such Category', null);
+            else {
+                next(null, doc)
+                return doc
+            }
+        })
 }
 
 
@@ -97,7 +89,7 @@ export const getAllQuestionariesOfACategory = (categoryName: any, next: any) => 
             }
             else {
 
-                next({}, null);
+                next('No such Category', null);
                 return {};
             }
         })
@@ -131,4 +123,24 @@ export const deleteQuestionary = (questionaryNameOrCode: any, username: any, nex
                     })
             }
         })
+}
+
+export const getAllUniqueAnswers = (questionaryNameOrCode: any, next: any) => {
+    console.log(questionaryNameOrCode)
+    let deleteQuery1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
+    let deleteQuery2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
+    console.log("aici")
+   
+    return AnswerTable
+        // .find({ $or: [deleteQuery1, deleteQuery2] })
+        .distinct('UserName',{ $or: [deleteQuery1, deleteQuery2] })
+        .then((res: any) => { console.log(res)
+            if (!_.isNil(res) && !_.isEmpty(res)){
+                next(null,JSON.stringify(res.length))
+            return res.length;}
+            else
+            next("No answer to this questionary",null)
+            return 0
+        })
+        .catch((err:any) => next(err,null))
 }
