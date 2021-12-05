@@ -25,6 +25,7 @@ export class DashboardMainScreenComponent implements OnInit {
 
   currentUser: User;
   questionnaires: QuestionnaireRequestResponse[] = [];
+  responseCount: { [code: string]: number } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class DashboardMainScreenComponent implements OnInit {
             .getQuestionnairesOfUser(currentUser.UserName)
             .subscribe((response) => {
               this.questionnaires = response;
+              this.getCountOfQuestionnaire();
             });
         }
       });
@@ -54,5 +56,15 @@ export class DashboardMainScreenComponent implements OnInit {
 
   goToMyQuestionnaires(): void {
     this.router.navigate(['dashboard-list'], { relativeTo: this.route });
+  }
+
+  getCountOfQuestionnaire(): void {
+    this.questionnaires.forEach((questionnaire) => {
+      this.questionnaireService
+        .getResponseCountOfQuestionnaireByCode(questionnaire.Code)
+        .subscribe((response) => {
+          this.responseCount[questionnaire.Code] = response;
+        });
+    });
   }
 }

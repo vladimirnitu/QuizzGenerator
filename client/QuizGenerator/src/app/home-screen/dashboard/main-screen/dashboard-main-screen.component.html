@@ -26,4 +26,25 @@
       </button>
     </mat-card-actions>
   </mat-card>
+
+  <ng-container *ngFor="let questionnaire of questionnaires">
+    <mat-card class="dashboard__main-screen__container__card">
+      <mat-card-header class="dashboard__main-screen__container__card__header">
+        <mat-icon mat-card-avatar>bar_chart</mat-icon>
+        <mat-card-title>Questionnaire: {{ questionnaire.Name }}</mat-card-title>
+        <mat-card-subtitle>Total number responses</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="dashboard__main-screen__container__card__content">
+        <div class="dashboard__main-screen__container__card__content__medium-text">
+          Response: <span class="dodger-blue"> {{ responseCount[questionnaire.Code] }} </span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="dashboard__main-screen__container__card__actions">
+        <button mat-button
+                (click)="router.navigate(['/dashboard/questionnaire', questionnaire.Code])">
+          OPEN
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
 </div>

@@ -101,6 +101,24 @@ export class QuestionnaireService {
       );
   }
 
+  getResponseCountOfQuestionnaireByCode(
+    questionnaireCode: string
+  ): Observable<number> {
+    return this.http
+      .get<any>(
+        config.getResponseCountOfQuestionnaireByCode + questionnaireCode
+      )
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get response count of questionnaire by code',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
   getQuestionsOfQuestionnaireByCode(
     questionnaireCode: string
   ): Observable<QuestionnaireQuestionRequestResponse[]> {
