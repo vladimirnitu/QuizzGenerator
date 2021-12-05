@@ -56,14 +56,15 @@ export const getQuestionaryByUserName = (req:any, res:any, next:any) => {
 }
 
 export const getAllUniqueAnswers = (req:any, res:any, next:any) => {
-    const codeOrName = _.get(req,'body.name','')
+    const codeOrName = req.params.codeorname;
+
     return questionaryApi.getAllUniqueAnswers(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }
 
 export const getStatistics = (req:any, res:any, next:any) => {
-    const codeOrName = _.get(req,'body.name','')
+    const codeOrName = req.params.codeorname;
     return questionaryApi.getStatistics(codeOrName,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })

@@ -15,7 +15,7 @@ router.get('/questionarycat/:category',questionaryMiddleware.getAllQuestionaries
 
 router.get('/questionaries/:username', questionaryMiddleware.getQuestionaryByUserName)
 
-router.get('/questionary/answer/unique', questionaryMiddleware.getAllUniqueAnswers)
+router.get('/questionary/answer/unique/:codeorname', questionaryMiddleware.getAllUniqueAnswers)
 
-router.get('/questionary/get/statistics', questionaryMiddleware.getStatistics)
+router.get('/questionary/get/statistics/:codeorname', questionaryMiddleware.getStatistics)
 export default router
