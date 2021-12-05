@@ -16,9 +16,10 @@ export const createAnonymQuestionary = (req:any, res:any, next:any) => {
 export const createQuestionary = (req:any, res:any, next:any) => {
     const name = _.get(req,'body.name','');
     const code =  hexgen(128)
+    const username = _.get(req,'body.username');
     const category = req.params.category;
 
-    return questionaryApi.createQuestionary(category,name,code,(err: any, data: any) => {
+    return questionaryApi.createQuestionary(category,name,code,username,(err: any, data: any) => {
         helper.returnResponse(res, err, data, next)
     })
 }

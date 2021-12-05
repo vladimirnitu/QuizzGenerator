@@ -37,26 +37,37 @@ export const getQuestionaryByUserName = (username: any, next: any) => {
             }
         })
 }
-export const createQuestionary = (categoryName: any, name: any, code: any, next: any) => {
-    return CategoryTable
-        .findOne({ Name: { $eq: categoryName } })
-        .then((doc: any) => {
-            if (!_.isNil(doc)) {
-                let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code })
-                questionaryTable.save((err: any) => {
-                    if (err)
-                        next("Duplicated Questionary", null)
-                    else
-                        next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code })
-                })
+export const createQuestionary = (categoryName: any, name: any, code: any, username: any, next: any) => {
+    return UserTable
+        .findOne({ UserName: { $eq: username } })
+        .then((docUser: any) => {
+            if (!_.isNil(docUser)) {
+                return CategoryTable
+                    .findOne({ Name: { $eq: categoryName } })
+                    .then((doc: any) => {
+                        if (!_.isNil(doc)) {
+                            let questionaryTable = new QuestionaryTable({ Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
+                            questionaryTable.save((err: any) => {
+                                if (err)
+                                    next("Duplicated Questionary", null)
+                                else
+                                    next(null, { Category: doc._id, CategoryName: categoryName, Name: name, Code: code, UserName: username })
+                            })
 
+                        }
+                        else {
+
+                            next('No such Category', null);
+                            return {};
+                        }
+                    })
             }
             else {
 
-                next('No such Category', null);
+                next('No such User', null);
                 return {};
             }
-        })
+        });
 }
 export const getQuestionaryByCodeOrName = (codeOrName: any, next: any) => {
 

@@ -4,8 +4,13 @@ import * as sharedActions from './shared.actions';
 import { SharedState } from './shared.state';
 
 const initialState: SharedState = {
-  isUserLogged: false,
-  loggedUser: undefined,
+  isUserLogged: true,
+  loggedUser: {
+    UserName: 'AndreiRosu',
+    Email: 'andreirosu@mail.com',
+    Name: 'Rosu',
+    FirstName: 'Andrei',
+  },
 };
 
 const sharedReducer = createReducer(

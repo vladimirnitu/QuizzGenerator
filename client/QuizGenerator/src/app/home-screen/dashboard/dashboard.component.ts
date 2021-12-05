@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
-import { AsyncPipe } from '@angular/common';
 import * as fromShared from '../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
 import { State } from '../../shared/app.state';
@@ -10,12 +8,6 @@ import { takeUntil } from 'rxjs/operators';
 import * as sharedActions from '../../shared/state/shared.actions';
 import { User } from '../../shared/models/user';
 import { Globals } from '../../shared/globals';
-
-enum DashboardContent {
-  MainBoard,
-  NewQuestionnaire,
-  MyQuestionnaires,
-}
 
 @Component({
   selector: 'app-dashboard',

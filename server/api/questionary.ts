@@ -7,9 +7,9 @@ export function createAnonymQuestionary(name: any, code: any, username: any, nex
         .then(() => { return questionaryLib.createAnonymQuestionary(name, code, username, next) })
 }
 
-export function createQuestionary(categoryName: any, name: any, code: any, next: any) {
+export function createQuestionary(categoryName: any, name: any, code: any, username: any, next: any) {
     return Promise.resolve()
-        .then(() => { return questionaryLib.createQuestionary(categoryName, name, code, next) })
+        .then(() => { return questionaryLib.createQuestionary(categoryName, name, code, username, next) })
 }
 
 export function getQuestionaryByCodeOrName(codeOrName: any, next: any) {

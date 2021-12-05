@@ -24,7 +24,7 @@ export class DashboardMainScreenComponent implements OnInit {
   currentUser$ = this.store.select(fromShared.getLoggedUser);
 
   currentUser: User;
-  questionnaires: QuestionnaireRequestResponse[];
+  questionnaires: QuestionnaireRequestResponse[] = [];
 
   constructor(
     private route: ActivatedRoute,
