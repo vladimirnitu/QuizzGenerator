@@ -1,0 +1,81 @@
+<div class="dashboard__questionnaire-stats__container">
+
+<mat-card class="dashboard__questionnaire-stats__container__card">
+  <mat-card-header class="dashboard__questionnaire-stats__container__card__header">
+    <mat-icon mat-card-avatar>numbers</mat-icon>
+    <mat-card-title>Gender distribution</mat-card-title>
+    <mat-card-subtitle>Responses based on the gender</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="dashboard__questionnaire-stats__container__card__content">
+    <div *ngIf="!isValidGender()"
+         class="dashboard__questionnaire-stats__container__card__content__medium-text">No data</div>
+    <ngx-charts-pie-chart *ngIf="isValidGender()" class="dashboard__questionnaire-stats__container__card__content__chart"
+      [results]="genderStatistics"
+      [legend]="false"
+      [legendTitle]="'Gender response chart'"
+      [view]="[500,300]"
+      [labels]="true" >
+    </ngx-charts-pie-chart>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="dashboard__questionnaire-stats__container__card">
+  <mat-card-header class="dashboard__questionnaire-stats__container__card__header">
+    <mat-icon mat-card-avatar>numbers</mat-icon>
+    <mat-card-title>Age distribution</mat-card-title>
+    <mat-card-subtitle>Responses based on the age</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="dashboard__questionnaire-stats__container__card__content">
+    <div *ngIf="!isValidAge()"
+         class="dashboard__questionnaire-stats__container__card__content__medium-text">No data</div>
+    <ngx-charts-pie-chart *ngIf="isValidAge()" class="dashboard__questionnaire-stats__container__card__content__chart"
+      [results]="ageStatistics"
+      [legend]="false"
+      [legendTitle]="'Age response chart'"
+      [view]="[500,300]"
+      [labels]="true" >
+    </ngx-charts-pie-chart>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="dashboard__questionnaire-stats__container__card">
+  <mat-card-header class="dashboard__questionnaire-stats__container__card__header">
+    <mat-icon mat-card-avatar>numbers</mat-icon>
+    <mat-card-title>Urbanism distribution</mat-card-title>
+    <mat-card-subtitle>Responses based on the urbanism</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="dashboard__questionnaire-stats__container__card__content">
+    <div *ngIf="!isValidUrbanism()"
+         class="dashboard__questionnaire-stats__container__card__content__medium-text">No data</div>
+    <ngx-charts-pie-chart *ngIf="isValidUrbanism()"
+                          class="dashboard__questionnaire-stats__container__card__content__chart"
+      [results]="urbanismStatistics"
+      [legend]="false"
+      [legendTitle]="'Urbanism response chart'"
+      [view]="[500,300]"
+      [labels]="true" >
+    </ngx-charts-pie-chart>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="dashboard__questionnaire-stats__container__card">
+  <mat-card-header class="dashboard__questionnaire-stats__container__card__header">
+    <mat-icon mat-card-avatar>numbers</mat-icon>
+    <mat-card-title>Occupation distribution</mat-card-title>
+    <mat-card-subtitle>Responses based on the occupation</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="dashboard__questionnaire-stats__container__card__content">
+    <div *ngIf="occupationStatistics.length === 0"
+         class="dashboard__questionnaire-stats__container__card__content__medium-text">No data</div>
+    <ngx-charts-pie-chart *ngIf="occupationStatistics.length !== 0"
+                          class="dashboard__questionnaire-stats__container__card__content__chart"
+      [results]="occupationStatistics"
+      [legend]="false"
+      [legendTitle]="'Gender response chart'"
+      [view]="[500,300]"
+      [labels]="true" >
+    </ngx-charts-pie-chart>
+  </mat-card-content>
+</mat-card>
+
+</div>

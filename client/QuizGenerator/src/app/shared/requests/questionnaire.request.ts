@@ -37,3 +37,10 @@ export interface DeleteQuestionnaireRequest {
   code: string;
   username: string;
 }
+
+export interface QuestionnaireStatistics {
+  Sex: { [key: string]: number }[];
+  GroupAge: { [key: string]: number }[];
+  Urbanism: { [key: string]: number }[];
+  Occupation: { [key: string]: number }[];
+}

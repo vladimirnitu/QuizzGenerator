@@ -9,6 +9,7 @@ import { DashboardMyQuestionnairesComponent } from './home-screen/dashboard/my-q
 import { DashboardNewQuestionnaireComponent } from './home-screen/dashboard/new-questionnaire/dashboard-new-questionnaire.component';
 import { AuthGuard } from './shared/helpers/auth.guard';
 import { QuestionnaireScreenComponent } from './public/questionnaire-screen/questionnaire-screen.component';
+import { QuestionnaireStatsComponent } from './home-screen/dashboard/questionnaire-stats/questionnaire-stats.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -38,7 +39,7 @@ const routes: Routes = [
               },
               {
                 path: 'questionnaire/:questionnaireID',
-                component: QuestionnaireScreenComponent,
+                component: QuestionnaireStatsComponent,
               },
               {
                 path: 'dashboard-list',

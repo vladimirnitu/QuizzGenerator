@@ -5,6 +5,7 @@ import * as fromShared from '../../shared/state/shared.selectors';
 import { Store } from '@ngrx/store';
 import { State } from '../../shared/app.state';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-screen-home',
@@ -19,7 +20,8 @@ export class HomeScreenHomeComponent implements OnInit {
   constructor(
     private store: Store<State>,
     private authService: AuthService,
-    private asyncPipe: AsyncPipe
+    private asyncPipe: AsyncPipe,
+    public router: Router
   ) {}
 
   ngOnInit(): void {}

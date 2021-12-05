@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { QuestionnaireScreenComponent } from './public/questionnaire-screen/questionnaire-screen.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { QuestionnaireStatsComponent } from './home-screen/dashboard/questionnaire-stats/questionnaire-stats.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +55,14 @@ import { MatRadioModule } from '@angular/material/radio';
     DashboardMyQuestionnairesComponent,
     QuestionnaireScreenComponent,
     NewQuestionnaireDialogComponent,
+    QuestionnaireStatsComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgxChartsModule,
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,

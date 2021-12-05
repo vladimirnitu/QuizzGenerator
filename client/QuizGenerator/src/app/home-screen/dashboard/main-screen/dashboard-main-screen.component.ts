@@ -20,7 +20,6 @@ import { errorResults } from '../../../shared/config';
 })
 export class DashboardMainScreenComponent implements OnInit {
   destroyed$: Subject<void> = new Subject<void>();
-  isLoggedIn$ = this.store.select(fromShared.isUserLogged);
   currentUser$ = this.store.select(fromShared.getLoggedUser);
 
   currentUser: User;
@@ -31,7 +30,8 @@ export class DashboardMainScreenComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store<State>,
     private questionnaireService: QuestionnaireService,
-    public router: Router
+    public router: Router,
+    public async: AsyncPipe
   ) {}
 
   ngOnInit(): void {

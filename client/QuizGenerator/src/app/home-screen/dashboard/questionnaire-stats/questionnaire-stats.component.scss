@@ -1,0 +1,78 @@
+@import "../../../../varibales";
+
+.dashboard__questionnaire-stats {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  &__container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    &.centered {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+    }
+
+    &.padded {
+      padding: 2rem;
+    }
+
+    &.margin-top {
+      margin-top: 5rem;
+    }
+
+    &__title_text {
+      display: flex;
+      align-items: center;
+      height: 4rem;
+      padding: 1.2rem;
+      font-weight: 500;
+      color: $white;
+      text-shadow: 3px 3px $black;
+      font-size: 4rem;
+      line-height: 4rem;
+    }
+
+    &__card {
+      margin: 40px;
+
+
+      height: fit-content;
+      width: fit-content;
+
+      &__header {
+        mat-icon {
+          width: fit-content;
+          height: fit-content;
+          font-size: 2rem;
+        }
+      }
+
+      &__content {
+        &__medium-text {
+          text-align: center;
+          line-height: 5rem;
+          font-size: 4.5rem;
+          font-weight: 500;
+
+          .dodger-blue {
+            color: dodgerblue;
+          }
+        }
+
+        &__chart {
+          width: fit-content;
+          position: relative;
+          display: flex;
+        }
+      }
+    }
+
+  }
+}
+

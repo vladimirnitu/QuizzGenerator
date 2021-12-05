@@ -25,18 +25,18 @@ export class HomeScreenComponent implements OnInit {
   isLoggedIn = false;
 
   navButtonsList = [
-    {
-      name: 'Home',
-      link: '/home',
-    },
-    {
-      name: 'About us',
-      link: '/home',
-    },
-    {
-      name: 'Contact',
-      link: '/home',
-    },
+    // {
+    //   name: 'Home',
+    //   link: '/home',
+    // },
+    // {
+    //   name: 'About us',
+    //   link: '/home',
+    // },
+    // {
+    //   name: 'Contact',
+    //   link: '/home',
+    // },
   ];
 
   constructor(

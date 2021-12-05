@@ -9,6 +9,8 @@ export class config {
   static createQuestion = baseUrl + '/questions/create/';
   static getAllQuestionnairesOfUser = baseUrl + '/questionaries/';
   static getQuestionnaireByCode = baseUrl + '/questionary/';
+  static getStatisticsOfQuestionnaireByCode =
+    baseUrl + '/questionary/get/statistics/';
   static getResponseCountOfQuestionnaireByCode =
     baseUrl + '/questionary/answer/unique/';
   static getQuestionsOfQuestionnaireByCode = baseUrl + '/questions/';

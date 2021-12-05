@@ -16,6 +16,7 @@ import {
   QuestionnaireQuestionRequestResponse,
   QuestionnaireRequest,
   QuestionnaireRequestResponse,
+  QuestionnaireStatistics,
 } from '../requests/questionnaire.request';
 
 @Injectable({
@@ -90,6 +91,22 @@ export class QuestionnaireService {
   ): Observable<QuestionnaireRequestResponse> {
     return this.http
       .get<any>(config.getQuestionnaireByCode + questionnaireCode)
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get questionnaire by code',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
+  getQuestionnaireStatsByCode(
+    questionnaireCode: string
+  ): Observable<QuestionnaireStatistics> {
+    return this.http
+      .get<any>(config.getStatisticsOfQuestionnaireByCode + questionnaireCode)
       .pipe(
         tap((data) => this.processResponse(data)),
         catchError(

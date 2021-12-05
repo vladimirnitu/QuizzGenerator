@@ -1,15 +1,15 @@
 <div class="home-screen__body__container centered">
-  <div *ngIf="isLoggedIn$ | async" class="home-screen__body__container__title_text">
-    {{ ( currentUser$ | async)!.FirstName }}
+  <div class="home-screen__body__container__title_text">
+    Welcome to Quiz Generator
   </div>
 </div>
 <div class="home-screen__body__container centered margin-top">
 
-  <button mat-raised-button class="home-screen__body__container__button connect" (click)="printUsr()">
+  <button mat-raised-button class="home-screen__body__container__button connect" (click)="router.navigate(['./dashboard/dashboard-new'])">
     {{ 'Create a quiz!' }}
   </button>
 
-  <button mat-raised-button class="home-screen__body__container__button connect" (click)="printUsr()">
-    {{ 'Create a quiz2!' }}
+  <button mat-raised-button class="home-screen__body__container__button register" (click)="router.navigate(['./login/'])">
+    {{ 'Create a an account!' }}
   </button>
 </div>

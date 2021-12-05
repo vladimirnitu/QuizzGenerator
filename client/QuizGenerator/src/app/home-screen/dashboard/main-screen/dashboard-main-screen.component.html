@@ -1,6 +1,6 @@
-<div *ngIf="isLoggedIn$ | async" class="dashboard__main-screen__container__title_text">
+<div class="dashboard__main-screen__container__title_text">
    <span>
-    Welcome <span class="dodger-blue">{{ ' ' + ( currentUser$ | async)!.FirstName + ' ' }}</span> to your dashboard.
+    Welcome <span class="dodger-blue">{{ ' ' + currentUser?.FirstName + ' ' }}</span> to your dashboard.
    </span>
 </div>
 <div class="dashboard__main-screen__container padded">
