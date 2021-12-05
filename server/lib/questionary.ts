@@ -150,7 +150,8 @@ export const getAllUniqueAnswers = (questionaryNameOrCode: any, next: any) => {
                 return res.length;
             }
             else
-                next("No answer to this questionary", null)
+                next(null, JSON.stringify(0))
+                return 0;
             return 0
         })
         .catch((err: any) => next(err, null))
