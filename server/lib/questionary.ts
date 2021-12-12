@@ -5,6 +5,7 @@ import UserTable from "../models/User"
 import AnswerTable from "../models/Answer"
 import QuestionsTable from "../models/Questions"
 import { statisticMapper } from '../utils/mapper'
+import { Promise } from 'bluebird';
 export const createAnonymQuestionary = (name: any, code: any, username: any, next: any) => {
     return UserTable
         .findOne({ UserName: { $eq: username } })
@@ -32,8 +33,45 @@ export const getQuestionaryByUserName = (username: any, next: any) => {
             if (_.isEmpty(doc) || doc === undefined)
                 next(null, []);
             else {
-                next(null, doc)
-                return doc
+                return Promise.map(doc, (d: any) => {
+                    return Promise.resolve()
+                        .then(() => {
+
+                            let Query1 = { QuestionaryName: { $eq: d.Name } }
+                            let Query2 = { QuestionaryCode: { $eq: d.Code } }
+                            return AnswerTable
+                                .distinct('UserName', { $or: [Query1, Query2] })
+                                .then((res: any) => {
+
+                                    if (!_.isNil(res) && !_.isEmpty(res)) {
+ 
+                                        return { ...d, ...{ uniqueAnswers: res.length } };
+                                    }
+                                    else
+
+                                        return { ...d, ...{ uniqueAnswers: 0 } };
+
+                                })
+                                .catch((err: any) => next(err, null))
+                        })
+                })
+                .then((newDoc:any) => {
+                    let finalDoc:any[] =[];
+                    _.forEach(newDoc,dc => {
+                        console.log(dc)
+                        const mappedDoc:any = {
+                            _id: _.get(dc,'_doc._id',''),
+                            Category: _.get(dc,'_doc.Category',''),
+                            CategoryName: _.get(dc,'_doc.CategoryName',''),
+                            Name: _.get(dc,'_doc.Name',''),
+                            Code: _.get(dc, '_doc.Code',''),
+                            UserName: _.get(dc,'_doc.UserName',''),
+                            UniqueAnswers: _.get(dc,'uniqueAnswers','')
+                        }
+                        finalDoc.push(mappedDoc);
+                    })
+                    next(null,finalDoc);
+                })
             }
         })
 }
@@ -136,13 +174,12 @@ export const deleteQuestionary = (questionaryCode: any, username: any, next: any
 
 export const getAllUniqueAnswers = (questionaryNameOrCode: any, next: any) => {
 
-    let deleteQuery1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
-    let deleteQuery2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
+    let Query1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
+    let Query2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
 
 
     return AnswerTable
-        // .find({ $or: [deleteQuery1, deleteQuery2] })
-        .distinct('UserName', { $or: [deleteQuery1, deleteQuery2] })
+        .distinct('UserName', { $or: [Query1, Query2] })
         .then((res: any) => {
 
             if (!_.isNil(res) && !_.isEmpty(res)) {
@@ -151,18 +188,18 @@ export const getAllUniqueAnswers = (questionaryNameOrCode: any, next: any) => {
             }
             else
                 next(null, JSON.stringify(0))
-                return 0;
-            return 0
+            return 0;
+
         })
         .catch((err: any) => next(err, null))
 }
 
 export const getStatistics = (questionaryNameOrCode: any, next: any) => {
-    let deleteQuery1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
-    let deleteQuery2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
+    let Query1 = { QuestionaryName: { $eq: questionaryNameOrCode } }
+    let Query2 = { QuestionaryCode: { $eq: questionaryNameOrCode } }
     return AnswerTable
         .aggregate([
-            { $match: { $or: [deleteQuery1, deleteQuery2] } },
+            { $match: { $or: [Query1, Query2] } },
             {
                 $facet: {
                     'Sex': [
@@ -182,7 +219,7 @@ export const getStatistics = (questionaryNameOrCode: any, next: any) => {
         ])
         .then((statisticsResults: any) => {
             return QuestionsTable
-                .find({ $or: [deleteQuery1, deleteQuery2] })
+                .find({ $or: [Query1, Query2] })
                 .count()
                 .then((countResult: any) => {
 
