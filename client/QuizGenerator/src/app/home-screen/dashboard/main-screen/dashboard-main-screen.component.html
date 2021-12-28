@@ -44,6 +44,10 @@
                 (click)="router.navigate(['/dashboard/questionnaire', questionnaire.Code])">
           OPEN
         </button>
+        <button mat-button
+                (click)="router.navigate(['/questionnaire/', questionnaire.Code])">
+          SHARE
+        </button>
       </mat-card-actions>
     </mat-card>
   </ng-container>
