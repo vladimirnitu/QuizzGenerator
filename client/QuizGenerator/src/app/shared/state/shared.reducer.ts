@@ -6,8 +6,8 @@ import { SharedState } from './shared.state';
 const initialState: SharedState = {
   isUserLogged: true,
   loggedUser: {
-    UserName: 'AndreiRosu',
-    Email: 'andreirosu@mail.com',
+    UserName: 'andrei.rosu',
+    Email: 'andrei.rosu@mail.com',
     Name: 'Rosu',
     FirstName: 'Andrei',
   },

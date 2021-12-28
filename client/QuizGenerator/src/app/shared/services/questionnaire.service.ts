@@ -180,6 +180,25 @@ export class QuestionnaireService {
       );
   }
 
+  getQuestionnaireQuestionAnswers(
+    questionnaireCode: string,
+    questionCode: string
+  ): Observable<any> {
+    return this.http
+      .get<any>(
+        config.getQuestionAnswers + questionnaireCode + '/' + questionCode
+      )
+      .pipe(
+        tap((data) => this.processResponse(data)),
+        catchError(
+          this.errorHandler.handleError<any>(
+            'get question answers',
+            'Request timeout'
+          )
+        )
+      );
+  }
+
   processResponse(response: any): void {
     if (isNil(response)) {
       console.log('NULL RESPONSE');

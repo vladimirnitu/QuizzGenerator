@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionnaireService } from '../../../shared/services/questionnaire.service';
 import { QuestionnaireStatistics } from '../../../shared/requests/questionnaire.request';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-questionnaire-stats',
@@ -61,6 +62,9 @@ export class QuestionnaireStatsComponent implements OnInit {
 
   occupationStatistics = [];
 
+  questionnaireQuestions = [];
+  showResponses = false;
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -72,7 +76,6 @@ export class QuestionnaireStatsComponent implements OnInit {
     this.questionnaireService
       .getQuestionnaireStatsByCode(this.idNumber)
       .subscribe((response) => {
-        // this.questionnaireStatistics = response;
         response.Sex.forEach((sex) => {
           const key = Object.keys(sex)[0];
           if (this.genderStatistics.findIndex((el) => el.name === key) !== -1) {
@@ -113,6 +116,20 @@ export class QuestionnaireStatsComponent implements OnInit {
             value: occupation[key],
           });
         });
+      });
+    this.questionnaireService
+      .getQuestionsOfQuestionnaireByCode(this.idNumber)
+      .subscribe((response) => {
+        this.questionnaireQuestions = response;
+        this.questionnaireQuestions.forEach((q) => {
+          q.answers = [];
+          this.questionnaireService
+            .getQuestionnaireQuestionAnswers(this.idNumber, q._id)
+            .subscribe((resp) => {
+              q.answers = resp;
+            });
+        });
+        console.log(this.questionnaireQuestions);
       });
   }
 

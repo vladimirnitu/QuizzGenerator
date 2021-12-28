@@ -16,6 +16,7 @@ export class config {
   static getQuestionsOfQuestionnaireByCode = baseUrl + '/questions/';
   static createAnswer = baseUrl + '/answer/create';
   static deleteQuestionnaire = baseUrl + '/questionary/';
+  static getQuestionAnswers = baseUrl + '/answer/';
 }
 
 export enum errorResults {

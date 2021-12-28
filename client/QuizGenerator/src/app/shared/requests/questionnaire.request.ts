@@ -8,6 +8,7 @@ export interface QuestionnaireRequestResponse {
   CategoryName: string;
   Name: string;
   Code: string;
+  UniqueAnswers: number;
   UserName: string;
 }
 

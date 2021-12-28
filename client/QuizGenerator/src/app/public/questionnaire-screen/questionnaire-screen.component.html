@@ -22,6 +22,9 @@
         <mat-radio-button class="questionnaire-screen__container__radio__group__button" *ngFor="let answer of questions[i].PossibleAnswer" [value]="answer">
           {{ answer }}
         </mat-radio-button>
+        <mat-radio-button class="questionnaire-screen__container__radio__group__button" [value]="'Other'">
+          Other
+        </mat-radio-button>
       </mat-radio-group>
     </div>
     <div class="questionnaire-screen__container__personal-data">
