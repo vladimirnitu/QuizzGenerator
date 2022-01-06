@@ -1,0 +1,679 @@
+{
+	"info": {
+		"_postman_id": "13bf0e7b-6341-48fb-967a-79f821c547e6",
+		"name": "QuizzApp Copy 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "aw82s2s2a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Gigi",
+									"type": "text"
+								},
+								{
+									"key": "firstName",
+									"value": "duru",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "occupation",
+									"value": "trantor",
+									"type": "text"
+								},
+								{
+									"key": "urbanism",
+									"value": "sat",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "myusername12328w",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/register/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with username or email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "adss2a@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "dsadsa",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/login/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/getUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"myusername1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "User creates an Empty Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "myusername1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "mycategoryw",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/category/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"create"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "adssa@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "mycategory",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find one category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/one/category/Muzica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"one",
+								"category",
+								"Muzica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all the categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/category/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questionary",
+			"item": [
+				{
+					"name": "Create anonym questionary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"my first w3323325q01\",\r\n    \"username\":\"myusername1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary/anonym/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary",
+								"anonym",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create normal questionary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Muzica Rock2\",\r\n    \"username\":\"AndreiRosu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary/create/Muzica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary",
+								"create",
+								"Muzica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a questionary via code or name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary/Muzica Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary",
+								"Muzica Rock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all questionaries of a category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/questionarycat/Muzica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionarycat",
+								"Muzica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteQuestionary",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"01dad6d91c78e12e3ab275b95e0b20c4\",\r\n    \"username\":\"myusername1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all questionaries by username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/questionaries/AndreiRosu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionaries",
+								"AndreiRosu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all unique answers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary/answer/unique/6ea9376320456108c850bc4b4ad7e127",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary",
+								"answer",
+								"unique",
+								"6ea9376320456108c850bc4b4ad7e127"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get statistics of a questionary",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questionary/get/statistics/049078d6d3522312858e3c2aaba111c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questionary",
+								"get",
+								"statistics",
+								"049078d6d3522312858e3c2aaba111c8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "create a question for a questionary given via name/code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": {\r\n        \"name\":\"Asculti Metallica?\",\r\n        \"possibleAnswer\":[\"Nu\",\"da\"]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/questions/create/Muzica Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questions",
+								"create",
+								"Muzica Rock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all questions for a questionary given by code or name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/questions/049078d6d3522312858e3c2aaba111c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"questions",
+								"049078d6d3522312858e3c2aaba111c8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find one question given by Name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Asculti muzica rock\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/oneQuestion/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"oneQuestion",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questionName\": \"de ce plang chitarele\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/question/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"question",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "answer",
+			"item": [
+				{
+					"name": "create an answer for a question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questionaryName\": \"Muzica Rock\",\r\n    \"answers\": [{\r\n        \"questionName\": \"Asculti Muzica Rock?\",\r\n        \"answer\": \"da\",\r\n        \"questionId\": \"61935b755f44ab5a5cc67772\"\r\n\r\n\r\n    },{\r\n       \"questionName\": \"Asculti Metallica?\",\r\n        \"answer\": \"Nu\",\r\n        \"questionId\": \"61935be25f44ab5a5cc67775\"\r\n}],\r\n\"sex\":\"m\",\r\n        \"groupAge\":\"15-1w6\",\r\n        \"occupation\":\"engineer\",\r\n        \"urbanism\":\"urban\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/answer/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"answer",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all the statistics of a question",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questionName\": \"Asculti muzica rock?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/answer/Asculti muzica rock/Muzica Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"answer",
+								"Asculti muzica rock",
+								"Muzica Rock"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
